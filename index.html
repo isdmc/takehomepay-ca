@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Takehome Pay Calc
+        </title>
+    </head>
+    <body>
+        <script src="./calc.js"></script>
+        <h1>
+            Takehome Pay Calculator
+        </h1>
+        <label for="taxYear">Select Tax Year</label>
+        <select name="taxYear" id="taxYear">
+            <option value=2023>2023</option>
+            <option value=2024>2024</option>
+        </select>
+        <br> <br>
+        <label for="region">Select Province/Territory</label>
+        <select name="region" id="region">
+            <option value='Alberta'>Alberta</option>
+            <option value='British Columbia'>British Columbia</option>
+            <option value='Manitoba'>Manitoba</option>
+            <option value='New Brunswick'>New Brunswick</option>
+            <option value='Newfoundland and Labrador'>Newfoundland and Labrador</option>
+            <option value='Northwest Territories'>Northwest Territories</option>
+            <option value='Nova Scotia'>Nova Scotia</option>
+            <option value='Nunavut'>Nunavut</option>
+            <option value='Ontario'>Ontario</option>
+            <option value='Prince Edward Island'>Prince Edward Island</option>
+            <option value='Quebec'>Quebec</option>
+            <option value='Saskatchewan'>Saskatchewan</option>
+            <option value='Yukon'>Yukon</option>
+        </select>
+        <br> <br>
+        <label for="grossPay">Enter Gross Annual Pay:</label>
+        <input name="grossPay" id="grossPay" type="text"></input>
+        <br> <br>
+        <label for="payFrequency">Select Pay Frequency</label>
+        <select name="payFrequency" id="payFrequency">
+            <option value="Monthly">Monthly</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Bi-weekly">Bi-weekly</option>
+        </select>   
+        <br><br>
+        <button name="calc" id="calc" onclick="calcMain()">Calculate</button>
+        <br><br><br>
+        <label for="netAnnualPay">Net Annual Pay:</label>
+        <input name="netAnnualPay" id="netAnnualPay" type="text" disabled="true"></input>
+
+    </body>
+</html>
+
