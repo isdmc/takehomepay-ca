@@ -3,7 +3,7 @@
 // Basic Personal Amount: https://www.taxtips.ca/filing/personal-amount-tax-credit.htm
 // CPP Contribution Rates: https://www.taxtips.ca/cpp-qpp-and-ei/cpp-qpp-contribution-rates.htm
 // EI Contribution Rates: 
-module.exports = {
+export default {
     '2024': {
         'Federal': {
             'basicPersonalAmount': 14156,

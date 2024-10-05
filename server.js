@@ -9,7 +9,7 @@ const baseDir = __dirname;
 const defaultPageName = 'index.html';
 const defaultPath = path.join(baseDir, defaultPageName);
 
-console.log('Starting server...')
+console.log(`Server Listening on Port: ${PORT}`);
 http.createServer((request, response) => {
     let requestUrl = url.parse(request.url); 
     var requestedPath = path.join(baseDir, requestUrl.pathname)
@@ -42,7 +42,7 @@ function sendResponse(response, path) {
 function mapDocToContentType(path) {
     if (path.endsWith('.html')) {
         return 'text/html'
-    } else if (path.endsWith('.js')) {
+    } else if (path.endsWith('.js') || path.endsWith('.mjs')) {
         return 'text/javascript'
     } else if (path.endsWith('.json')) {
         return 'text/json'

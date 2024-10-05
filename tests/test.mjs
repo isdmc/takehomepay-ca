@@ -1,19 +1,19 @@
 // Data
-const taxData = require('../data/taxData.js');
+import taxData from '../data/taxData.mjs';
 
 // Unit Test stuff
-const UnitTest = require('../tests/unitTest.js');
-const UnitTestRunner = require('../tests/unitTestRunner.js');
+import UnitTest from './unitTest.mjs';
+import UnitTestRunner from './unitTestRunner.mjs';
 
 // Calc Factory
-const CalcFactory = require('../calcs/calcFactory.js');
+import CalcFactory from '../calcs/calcFactory.mjs';
 
 // Test Cases
-const { tax: taxTestCases, surtax: surtaxTestCases } = require('./testCases/taxTestCases.js');
-const { EI: eiTestCases, QPIP: qpipTestCases } = require('./testCases/eiTestCases.js');
-const { cppTaxDeduction: cppDeductionTestCases, cppTaxCredit: cppCreditTestCases } = require('./testCases/cppTestCases.js');
-const basicPersonalAmountTestCases = require('./testCases/basicPersonalAmountTestCases.js');
-const ontarioHealthPremiumTestCases = require('./testCases/ontarioHealthPremiumTestCases.js');
+import { taxTestCases, surtaxTestCases } from './testCases/taxTestCases.mjs';
+import { eiTestCases, qpipTestCases } from './testCases/eiTestCases.mjs';
+import { cppDeductionTestCases, cppCreditTestCases } from './testCases/cppTestCases.mjs';
+import { basicPersonalAmountTestCases } from './testCases/basicPersonalAmountTestCases.mjs';
+import { ontarioHealthPremiumTestCases } from './testCases/ontarioHealthPremiumTestCases.mjs';
 
 // Set up test helper classes
 var testRunner = new UnitTestRunner();

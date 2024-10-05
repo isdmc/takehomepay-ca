@@ -1,4 +1,4 @@
-module.exports = class UnitTestRunner {
+export default class UnitTestRunner {
     constructor () {}
 
     runUnitTests(tests) {

@@ -1,11 +1,11 @@
-const TaxCalc = require('./taxCalc');
-const BasicPersonalAmountCalc = require('./basicPersonalAmountCalc');
-const CPPCalc = require('./cppCalc');
-const EICreditCalc = require('./eiCreditCalc');
-const EmploymentAmountCreditCalc = require('./canadaEmploymentCreditCalc');
-const OntarioHealthPremiumAmountCalc = require('./ontarioHealthPremiumCalc');
+import TaxCalc from './taxCalc.mjs';
+import BasicPersonalAmountCalc from './basicPersonalAmountCalc.mjs';
+import CPPCalc from './cppCalc.mjs';
+import EICreditCalc from './eiCreditCalc.mjs';
+import EmploymentAmountCreditCalc from './canadaEmploymentCreditCalc.mjs';
+import OntarioHealthPremiumAmountCalc from './ontarioHealthPremiumCalc.mjs';
 
-module.exports = class CalcFactory {
+export default class CalcFactory {
     constructor(taxData) {
         this.taxData = taxData;
     }

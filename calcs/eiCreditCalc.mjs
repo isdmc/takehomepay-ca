@@ -1,6 +1,6 @@
-const round = require('../util/round');
+import round from '../util/round.mjs';
 
-module.exports = class EICreditCalc {
+export default class EICreditCalc {
     constructor(taxDataForYear, region) {
         this.eiData = taxDataForYear['Federal'].ei;
         this.qpipData = taxDataForYear['Quebec'].qpip;

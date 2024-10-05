@@ -1,6 +1,6 @@
-const round = require('../util/round');
+import round from '../util/round.mjs';
 
-module.exports = class BasicPersonalAmountCreditCalc {
+export default class BasicPersonalAmountCreditCalc {
 
     constructor(taxInfoForYear) {
         this.taxInfoForYear = taxInfoForYear;

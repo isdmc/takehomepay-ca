@@ -1,6 +1,6 @@
-const TestCase = require('../testCase');
+import TestCase from '../testCase.mjs';
 
-module.exports = {
+export const ontarioHealthPremiumTestCases = {
     '2024': {
         'Ontario':
         [

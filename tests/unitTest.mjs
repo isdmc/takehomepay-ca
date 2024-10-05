@@ -1,4 +1,4 @@
-module.exports = class UnitTest {    
+export default class UnitTest {    
     constructor(testCase, testFn) {
         this.testCase = testCase;
         this.testFn = testFn;

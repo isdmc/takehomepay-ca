@@ -1,8 +1,8 @@
-const round = require('../util/round');
+import round from '../util/round.mjs';
 
 // https://seniuk.com/additional-canada-pension-plan-cpp-contributions-required-for-2024/
 // https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
-module.exports = class CPPCalc {
+export default class CPPCalc {
     constructor(taxDataForYear, region) {        
         let cppRegion = region === 'Quebec' ? 'Quebec' : 'Federal';
         this.cppData = taxDataForYear[cppRegion].CPP_QPP;

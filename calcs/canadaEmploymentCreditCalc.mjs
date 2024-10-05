@@ -1,7 +1,7 @@
-const round = require('../util/round');
+import round from '../util/round.mjs';
 
 // https://support.hrblock.ca/en-ca/Content/Employed/WhatIsCanadaEmploymentAmount.htm
-module.exports = class CanadaEmploymentCreditCalc {
+export default class CanadaEmploymentCreditCalc {
 
     constructor(taxDataForYear) {
         this.taxDataForYear = taxDataForYear;

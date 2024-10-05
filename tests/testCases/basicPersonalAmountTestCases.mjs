@@ -1,4 +1,4 @@
-const TestCase = require('../testCase');
+import TestCase from '../testCase.mjs';
 
 const FederalCreditRate_2024 = 0.15;
 const NewfoundlandCreditRate_2024 = 0.087;
@@ -15,7 +15,7 @@ const NorthwestTerritoriesCreditRate_2024 = 0.059;
 const NunavutCreditRate_2024 = 0.04;
 const YukonCreditRate_2024 = 0.064;
 
-module.exports = {
+export const basicPersonalAmountTestCases = {
     2024: {
         'Federal': [
             new TestCase ('Basic Personal Amount - Federal - 2024 - 10K', { taxableIncome: 10*1000, region: 'Federal' }, 15705 * FederalCreditRate_2024),
@@ -111,9 +111,5 @@ module.exports = {
             new TestCase ('Basic Personal Amount - Yukon - 2024 - 250K', { taxableIncome: 250*1000, region: 'Yukon' }, 14156 * YukonCreditRate_2024),
             new TestCase ('Basic Personal Amount - Yukon - 2024 - 1M', { taxableIncome: 1000*1000, region: 'Yukon' }, 14156 * YukonCreditRate_2024)
         ]
-    },
-    2023: {
-        'Federal': [],
-        'Yukon': []
     }
 }

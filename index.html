@@ -6,7 +6,12 @@
         </title>
     </head>
     <body>
-        <script src="./calc.js"></script>
+        <script type="module">
+            import { calcMain } from "./calc.mjs" 
+            document.querySelector("#calc").addEventListener('click', () => {
+                calcMain();
+            });
+        </script>
         <h1>
             Takehome Pay Calculator
         </h1>
@@ -43,7 +48,7 @@
             <option value="Bi-weekly">Bi-weekly</option>
         </select>   
         <br><br>
-        <button name="calc" id="calc" onclick="calcMain()">Calculate</button>
+        <button name="calc" id="calc">Calculate</button>
         <br><br><br>
         <label for="netAnnualPay">Net Annual Pay:</label>
         <input name="netAnnualPay" id="netAnnualPay" type="text" disabled="true"></input>

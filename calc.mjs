@@ -1,19 +1,19 @@
-const taxData = require('./data/taxData');
-const CalcFactory = require('./calcs/calcFactory');
-const round = require('./util/round');
+import taxData from './data/taxData.mjs';
+import CalcFactory from './calcs/calcFactory.mjs';
+import round from './util/round.mjs';
 
 // Ref for deductions vs credits and other things: 
 // https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
 
 // Ref for detailed calculations:
 // https://www.taxtips.ca/calculators/canadian-tax/canadian-tax-calculator.htm
-function calcMain() {
-    // var grossPay = document.getElementById('grossPay').value;
-    // var taxYear = document.getElementById('taxYear').value;
-    // var region = document.getElementById('region').value;
-    let year = 2024;
-    let region = 'Newfoundland and Labrador';
-    let grossIncome = 93 * 1000;
+export function calcMain() {
+    var grossIncome = document.getElementById('grossPay').value;
+    var year = document.getElementById('taxYear').value;
+    var region = document.getElementById('region').value;
+    // let year = 2024;
+    // let region = 'Newfoundland and Labrador';
+    // let grossIncome = 93 * 1000;
     let debug = true;
 
     // Intialize Calcs
@@ -112,5 +112,3 @@ function calcMain() {
     // var netAnnualPay = document.getElementById('netAnnualPay');
     // netAnnualPay.value = netPay;
 }
-
-calcMain();
