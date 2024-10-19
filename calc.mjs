@@ -1,6 +1,6 @@
 import taxData from './data/taxData.mjs';
 import CalcFactory from './calcs/calcFactory.mjs';
-import round from './util/round.mjs';
+import toDollarFormat from './util/toDollarFormat.mjs';
 
 // Ref for deductions vs credits and other things: 
 // https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
@@ -8,107 +8,190 @@ import round from './util/round.mjs';
 // Ref for detailed calculations:
 // https://www.taxtips.ca/calculators/canadian-tax/canadian-tax-calculator.htm
 export function calcMain() {
-    var grossIncome = document.getElementById('grossPay').value;
-    var year = document.getElementById('taxYear').value;
-    var region = document.getElementById('region').value;
-    // let year = 2024;
-    // let region = 'Newfoundland and Labrador';
-    // let grossIncome = 93 * 1000;
-    let debug = true;
+    let grossIncome = document.getElementById('grossPay').value;
+    let year = document.getElementById('taxYear').value;
+    let region = document.getElementById('region').value;
 
-    // Intialize Calcs
+    let debug = true;
+    let calcs = getCalculators(taxData, year, region);
+
+    let results = {
+        deductions: {},
+        taxes: {},
+        premiums: {},
+        credits: {},
+        netTaxes: {},
+        netPay: 0
+    };
+
+    calculateDeductions(results, grossIncome, calcs);
+    let taxableIncome = grossIncome - results.deductions.cppDeduction;
+
+    calculateTaxes(results, taxableIncome, region, calcs);
+    calculatePremiums(results, grossIncome, taxableIncome, region, calcs)
+    calculateCredits(results, region, grossIncome, calcs);
+    calculateNetTaxes(results, region, calcs);
+    calculateNetPay(results, grossIncome);
+
+    displayResults(results);
+
+    if (debug) {
+        printDebug(year, region, grossIncome, results);
+    }
+}
+
+function getCalculators(taxData, year, region) {
     let factory = new CalcFactory(taxData);
     let taxCalc = factory.get(year, null, 'Tax');
     let basicPersonalAmountCalc = factory.get(year, region, 'BasicPersonalAmount');
     let cppCalc = factory.get(year, region, 'CPP');
     let eiCalc = factory.get(year, region, 'EI');
     let employmentAmountCalc = factory.get(year, region, 'EmploymentAmount');
+    let ontarioHealthPremiumAmountCalc = factory.get(year, region, 'OntarioHealthPremium');
 
-    // Calc Deductions
-    let cppDeduction = cppCalc.calculateCPPTaxDeduction(grossIncome);
+    return {
+        taxCalc,
+        basicPersonalAmountCalc,
+        cppCalc,
+        eiCalc,
+        employmentAmountCalc,
+        ontarioHealthPremiumAmountCalc
+    };
+}
 
-    // Calc Taxes
-    let taxableIncome = grossIncome - cppDeduction;
-    let federalTax = taxCalc.calculateTaxes(taxableIncome, 'Federal');
-    let regionalTax = taxCalc.calculateTaxes(taxableIncome, region);
+function calculateTaxes(results, taxableIncome, region, calcs)
+{
+    results.taxes.federalTax = calcs.taxCalc.calculateTaxes(taxableIncome, 'Federal');
+    results.taxes.regionalTax = calcs.taxCalc.calculateTaxes(taxableIncome, region);
+}
 
-    // Ontario Health Premium
+function calculatePremiums(results, grossIncome, taxableIncome, region, calcs)
+{
     let ontarioHealthPremium = 0;
     if (region === 'Ontario') {
-        let ontarioHealthPremiumAmountCalc = factory.get(year, region, 'OntarioHealthPremium');
-        ontarioHealthPremium = ontarioHealthPremiumAmountCalc.calculateOntarioHealthPremium(taxableIncome);
+        ontarioHealthPremium = calcs.ontarioHealthPremiumAmountCalc.calculateOntarioHealthPremium(taxableIncome);
     }
 
-    // Calc CPP Premiums
-    let cppPremiums = cppCalc.calculateCPPPremiums(taxableIncome) + cppCalc.calculateCPPEnhancedPremiums(grossIncome);
+    results.premiums.ontarioHealthPremium = ontarioHealthPremium;
+    results.premiums.cppPremiums = calcs.cppCalc.calculateCPPPremiums(taxableIncome) + calcs.cppCalc.calculateCPPEnhancedPremiums(grossIncome);
+    results.premiums.eiPremiums = calcs.eiCalc.calculateEIPremiums(grossIncome);
+    results.premiums.totalPremiums = results.premiums.cppPremiums + results.premiums.eiPremiums;
+}
 
-    // Calc EI Premiums
-    let eiPremiums = eiCalc.calculateEIPremiums(grossIncome);
+function calculateDeductions(results, grossIncome, calcs)
+{
+    results.deductions.cppDeduction = calcs.cppCalc.calculateCPPTaxDeduction(grossIncome);
+}
 
-    let totalPremiums = cppPremiums + eiPremiums;
-
-    // Calc Credits
-    let basicPersonalAmountCreditFederal = basicPersonalAmountCalc.calculateBasicPersonalAmountTaxCredit(grossIncome, 'Federal');
-    let basicPersonalAmountCreditRegional = basicPersonalAmountCalc.calculateBasicPersonalAmountTaxCredit(grossIncome, region);
-    let cppCreditFederal = cppCalc.calculateCPPTaxCredit(grossIncome, 'Federal');
-    let cppCreditRegional = cppCalc.calculateCPPTaxCredit(grossIncome, region);
-    let eiCreditFederal = eiCalc.calculateEITaxCredit(grossIncome, 'Federal');
-    let eiCreditRegional;
+function calculateCredits(results, region, grossIncome, calcs)
+{
+    results.credits.basicPersonalAmountCreditFederal = calcs.basicPersonalAmountCalc.calculateBasicPersonalAmountTaxCredit(grossIncome, 'Federal');
+    results.credits.basicPersonalAmountCreditRegional = calcs.basicPersonalAmountCalc.calculateBasicPersonalAmountTaxCredit(grossIncome, region);
+    results.credits.cppCreditFederal = calcs.cppCalc.calculateCPPTaxCredit(grossIncome, 'Federal');
+    results.credits.cppCreditRegional = calcs.cppCalc.calculateCPPTaxCredit(grossIncome, region);
+    results.credits.eiCreditFederal = calcs.eiCalc.calculateEITaxCredit(grossIncome, 'Federal');
     if (region === 'Quebec') {
-        eiCreditRegional = eiCalc.calculateQPIPTaxCredit(grossIncome);
+        results.credits.eiCreditRegional = calcs.eiCalc.calculateQPIPTaxCredit(grossIncome);
     } 
     else {
-        eiCreditRegional = eiCalc.calculateEITaxCredit(grossIncome, region);
+        results.credits.eiCreditRegional = calcs.eiCalc.calculateEITaxCredit(grossIncome, region);
     }
     
-    let employmentAmountCreditFederal = employmentAmountCalc.calculateEmploymentAmountTaxCredit(grossIncome, 'Federal');
-    let employmentAmountCreditRegional = employmentAmountCalc.calculateEmploymentAmountTaxCredit(grossIncome, region);
+    results.credits.employmentAmountCreditFederal = calcs.employmentAmountCalc.calculateEmploymentAmountTaxCredit(grossIncome, 'Federal');
+    results.credits.employmentAmountCreditRegional = calcs.employmentAmountCalc.calculateEmploymentAmountTaxCredit(grossIncome, region);
     
-    let federalCredits = (basicPersonalAmountCreditFederal + cppCreditFederal + eiCreditFederal + employmentAmountCreditFederal);
-    let regionalCredits = (basicPersonalAmountCreditRegional + cppCreditRegional + eiCreditRegional + employmentAmountCreditRegional);
-    let totalCredits = round(federalCredits + regionalCredits, 2);
+    results.credits.federalCredits = (results.credits.basicPersonalAmountCreditFederal + results.credits.cppCreditFederal + results.credits.eiCreditFederal + results.credits.employmentAmountCreditFederal);
+    results.credits.regionalCredits = (results.credits.basicPersonalAmountCreditRegional + results.credits.cppCreditRegional + results.credits.eiCreditRegional + results.credits.employmentAmountCreditRegional);
+    results.credits.totalCredits = results.credits.federalCredits + results.credits.regionalCredits;
+}
 
-    // Calc Net Taxes
-    let netTaxesFederal = federalTax - federalCredits;
-    let regionalSurtax = taxCalc.calculateRegionalSurtax(regionalTax - regionalCredits, region);
-    let netTaxesRegional = round((regionalTax - regionalCredits) + regionalSurtax + ontarioHealthPremium, 2);
-    let netTaxes = round(netTaxesFederal + netTaxesRegional, 2);
+function calculateNetTaxes(results, region, calcs)
+{
+    results.netTaxes.netTaxesFederal = results.taxes.federalTax - results.credits.federalCredits;
+    let regionalSurtax = calcs.taxCalc.calculateRegionalSurtax(results.taxes.regionalTax - results.credits.regionalCredits, region);
+    results.netTaxes.netTaxesRegional = (results.taxes.regionalTax - results.credits.regionalCredits) + regionalSurtax + results.premiums.ontarioHealthPremium;
+    results.netTaxes.netTaxes = results.netTaxes.netTaxesFederal + results.netTaxes.netTaxesRegional;
+}
 
-    let netPay = grossIncome - (netTaxes + totalPremiums);
+function calculateNetPay(results, grossIncome)
+{
+    results.netPay = grossIncome - (results.netTaxes.netTaxes + results.premiums.totalPremiums);   
+}
 
-    if (debug) {
-        console.log('----------------- INPUTS --------------------');
-        console.log(`Year: ${year}`);
-        console.log(`Region: ${region}`);
-        console.log(`Income: ${grossIncome}`);
-        console.log('\n----------------- GROSS TAX --------------------');
-        console.log(`Federal Tax: ${federalTax}`);
-        console.log(`Regional Tax: ${regionalTax}`);
-        console.log(`Total Tax: ${federalTax + regionalTax}`);
-        console.log(`Ontario Health Premium: ${ontarioHealthPremium}`);
-        console.log('\n----------------- CPP AND EI PREMIUMS --------------------');
-        console.log(`CPP Premiums: ${cppPremiums}`);
-        console.log(`EI Premiums: ${eiPremiums}`);
-        console.log('\n----------------- CREDITS --------------------');
-        console.log(`Basic Personal Income Credits Federal: ${basicPersonalAmountCreditFederal}`);
-        console.log(`Basic Personal Income Credits Regional: ${basicPersonalAmountCreditRegional}`);
-        console.log(`CPP Credits Federal: ${cppCreditFederal}`);
-        console.log(`CPP Credits Regional: ${cppCreditRegional}`);
-        console.log(`EI Credits Federal: ${eiCreditFederal}`);
-        console.log(`EI Credits Regional: ${eiCreditRegional}`);
-        console.log(`Employment Amount Credits Federal: ${employmentAmountCreditFederal}`);
-        console.log(`Employment Amount Credits Regional: ${employmentAmountCreditRegional}`);
-        console.log(`Total Credits: ${totalCredits}`);
-        console.log('\n----------------- NET TAX --------------------');
-        console.log(`Regional Surtax: ${regionalSurtax}`);
-        console.log(`Net Federal Taxes: ${netTaxesFederal}`);
-        console.log(`Net Regional Taxes: ${netTaxesRegional}`);
-        console.log(`Net Taxes: ${netTaxes}`);
-        console.log(`Total Taxes and Premiums: ${netTaxes + totalPremiums}`);
-        console.log('\n----------------- NET PAY  --------------------');
-        console.log(`Net Pay: ${netPay}`);
-    }
+function displayResults(results)
+{
+    let federalTaxesElement = document.getElementById('federalTaxes');
+    let regionalTaxesElement = document.getElementById('regionalTaxes');
+    let totalTaxesElement = document.getElementById('totalTaxes');
+    federalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesFederal);
+    regionalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesRegional);
+    totalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxes);
 
-    // var netAnnualPay = document.getElementById('netAnnualPay');
-    // netAnnualPay.value = netPay;
+    let cppDeductionElement = document.getElementById('CPPDeduction');
+    cppDeductionElement.textContent = toDollarFormat(results.deductions.cppDeduction);
+
+    let federalBasicPersonalAmountElement = document.getElementById('federalBasicPersonalAmountCredit');
+    let regionalBasicPersonalAmountElement = document.getElementById('regionalBasicPersonalAmountCredit');
+    let totalBasicPersonalAmountElement = document.getElementById('totalBasicPersonalAmountCredit');
+    federalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditFederal);
+    regionalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditRegional);
+    totalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditFederal + results.credits.basicPersonalAmountCreditRegional);
+
+    let federalCPPCreditElement = document.getElementById('federalCPPCredit');
+    let regionalCPPCreditElement = document.getElementById('regionalCPPCredit');
+    let totalCPPCreditElement = document.getElementById('totalCPPCredit');
+    federalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditFederal);
+    regionalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditRegional);
+    totalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditFederal + results.credits.cppCreditRegional);
+
+    let federalEICreditElement = document.getElementById('federalEICredit');
+    let regionalEICreditElement = document.getElementById('regionalEICredit');
+    let totalEICreditElement = document.getElementById('totalEICredit');
+    federalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditFederal);
+    regionalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditRegional);
+    totalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditFederal + results.credits.eiCreditRegional);
+
+    let federalEmploymentAmountCreditElement = document.getElementById('federalEmploymentAmountCredit');
+    let regionalEmploymentAmountCreditElement = document.getElementById('regionalEmploymentAmountCredit');
+    let totalEmploymentAmountCreditElement = document.getElementById('totalEmploymentAmountCredit');
+    federalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditFederal);
+    regionalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditRegional);
+    totalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditFederal + results.credits.employmentAmountCreditRegional);
+
+    let takehomepayElement = document.getElementById('takehomepay');
+    takehomepayElement.textContent = toDollarFormat(results.netPay);
+}
+
+function printDebug(year, region, grossIncome, results)
+{
+    console.log('----------------- INPUTS --------------------');
+    console.log(`Year: ${year}`);
+    console.log(`Region: ${region}`);
+    console.log(`Income: ${grossIncome}`);
+    console.log('\n----------------- TAX --------------------');
+    console.log(`Federal Tax: ${results.taxes.federalTax}`);
+    console.log(`Regional Tax: ${results.taxes.regionalTax}`);
+    console.log(`Total Tax: ${results.taxes.federalTax + results.taxes.regionalTax}`);
+    console.log('\n----------------- PREMIUMS --------------------');
+    console.log(`CPP/QPP Premiums: ${results.premiums.cppPremiums}`);
+    console.log(`EI Premiums: ${results.eiPremiums}`);
+    console.log(`Ontario Health Premium: ${results.premiums.ontarioHealthPremium}`);
+    console.log('\n----------------- CREDITS --------------------');
+    console.log(`Basic Personal Income Credits Federal: ${results.credits.basicPersonalAmountCreditFederal}`);
+    console.log(`Basic Personal Income Credits Regional: ${results.credits.basicPersonalAmountCreditRegional}`);
+    console.log(`CPP Credits Federal: ${results.credits.cppCreditFederal}`);
+    console.log(`CPP Credits Regional: ${results.credits.cppCreditRegional}`);
+    console.log(`EI Credits Federal: ${results.credits.eiCreditFederal}`);
+    console.log(`EI/QPIP Credits Regional: ${results.credits.eiCreditRegional}`);
+    console.log(`Employment Amount Credits Federal: ${results.credits.employmentAmountCreditFederal}`);
+    console.log(`Employment Amount Credits Regional: ${results.credits.employmentAmountCreditRegional}`);
+    console.log(`Total Credits: ${results.credits.totalCredits}`);
+    console.log('\n----------------- NET TAX --------------------');
+    console.log(`Regional Surtax: ${results.taxes.regionalSurtax}`);
+    console.log(`Net Federal Taxes: ${results.netTaxes.netTaxesFederal}`);
+    console.log(`Net Regional Taxes: ${results.netTaxes.netTaxesRegional}`);
+    console.log(`Net Taxes: ${results.netTaxes.netTaxes}`);
+    console.log(`Total Taxes and Premiums: ${results.netTaxes.netTaxes + results.premiums.totalPremiums}`);
+    console.log('\n----------------- NET PAY  --------------------');
+    console.log(`Net Pay: ${results.netPay}`);
 }
