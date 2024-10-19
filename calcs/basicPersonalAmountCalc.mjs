@@ -6,7 +6,6 @@ export default class BasicPersonalAmountCreditCalc {
         this.BASIC_PERSONAL_AMOUNT_REDUCTION_END_TIER_INDEX = 4;
     }
 
-    // https://www.fidelity.ca/en/insights/articles/personal-amount-tax-credit-guide/
     calculateBasicPersonalAmountTaxCredit = function(taxableIncome, region) {
         if (region == 'Federal' || region === 'Yukon') {
             return this.#calculateScaledBasicPersonalAmountCredit(taxableIncome, region);
@@ -16,7 +15,6 @@ export default class BasicPersonalAmountCreditCalc {
         }
     }
 
-    // https://www.taxtips.ca/filing/personal-amount-tax-credit.htm
     #calculateScaledBasicPersonalAmountCredit = function(taxableIncome, region) {
         // YT uses the same "reduction range" as Federal
         let reductionStart = this.taxInfoForYear['Federal'].brackets[this.BASIC_PERSONAL_AMOUNT_REDUCTION_START_TIER_INDEX].rangeMin;

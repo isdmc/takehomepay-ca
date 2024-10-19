@@ -1,4 +1,3 @@
-// https://support.hrblock.ca/en-ca/Content/Employed/WhatIsCanadaEmploymentAmount.htm
 export default class CanadaEmploymentCreditCalc {
 
     constructor(taxDataForYear) {

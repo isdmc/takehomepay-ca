@@ -1,25 +1,16 @@
-// Data
 import taxData from '../data/taxData.mjs';
-
-// Unit Test stuff
 import UnitTest from './unitTest.mjs';
 import UnitTestRunner from './unitTestRunner.mjs';
-
-// Calc Factory
 import CalcFactory from '../calcs/calcFactory.mjs';
-
-// Test Cases
 import { taxTestCases, surtaxTestCases } from './testCases/taxTestCases.mjs';
 import { eiTestCases, qpipTestCases } from './testCases/eiTestCases.mjs';
 import { cppDeductionTestCases, cppCreditTestCases } from './testCases/cppTestCases.mjs';
 import { basicPersonalAmountTestCases } from './testCases/basicPersonalAmountTestCases.mjs';
 import { ontarioHealthPremiumTestCases } from './testCases/ontarioHealthPremiumTestCases.mjs';
 
-// Set up test helper classes
 var testRunner = new UnitTestRunner();
 let calcFactory = new CalcFactory(taxData);
 
-// Set up test cases 
 var years = [2024];
 var regions = ['Federal', 'Newfoundland and Labrador', 'Prince Edward Island', 'Nova Scotia', 'New Brunswick', 'Quebec', 'Ontario', 'Manitoba', 'Saskatchewan', 'Alberta', 'British Columbia', 'Northwest Territories', 'Nunavut', 'Yukon'];
 

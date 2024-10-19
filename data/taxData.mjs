@@ -1,9 +1,4 @@
-// Sources:
-// Tax brackets: https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html#toc2
-// Basic Personal Amount: https://www.taxtips.ca/filing/personal-amount-tax-credit.htm
-// CPP Contribution Rates: https://www.taxtips.ca/cpp-qpp-and-ei/cpp-qpp-contribution-rates.htm
-// EI Contribution Rates: 
-export default {
+ export default {
     '2024': {
         'Federal': {
             'basicPersonalAmount': 14156,

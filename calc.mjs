@@ -2,11 +2,6 @@ import taxData from './data/taxData.mjs';
 import CalcFactory from './calcs/calcFactory.mjs';
 import toDollarFormat from './util/toDollarFormat.mjs';
 
-// Ref for deductions vs credits and other things: 
-// https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
-
-// Ref for detailed calculations:
-// https://www.taxtips.ca/calculators/canadian-tax/canadian-tax-calculator.htm
 export function calcMain() {
     let grossIncome = document.getElementById('grossPay').value;
     let year = document.getElementById('taxYear').value;

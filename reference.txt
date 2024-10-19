@@ -1,0 +1,33 @@
+Ref for detailed calculations:
+https://www.taxtips.ca/calculators/canadian-tax/canadian-tax-calculator.htm
+
+Deductions vs Credits and other things:
+https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
+
+Tax Data
+Tax brackets: https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html#toc2
+Basic Personal Amount: https://www.taxtips.ca/filing/personal-amount-tax-credit.htm
+CPP Contribution Rates: https://www.taxtips.ca/cpp-qpp-and-ei/cpp-qpp-contribution-rates.htm
+EI Contribution Rates: https://www.taxtips.ca/cpp-qpp-and-ei/employment-insurance-premium-rates.htm
+
+Basic Personal Amount
+https://www.fidelity.ca/en/insights/articles/personal-amount-tax-credit-guide/
+https://www.taxtips.ca/filing/personal-amount-tax-credit.htm
+
+Canadian Employment Amount
+https://support.hrblock.ca/en-ca/Content/Employed/WhatIsCanadaEmploymentAmount.htm
+
+CPP
+https://seniuk.com/additional-canada-pension-plan-cpp-contributions-required-for-2024/
+https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
+
+EI & QPIP
+https://kpu.pressbooks.pub/cdntax/chapter/what-are-cpp-and-ei-contributions-and-how-do-we-calculate-them/
+https://seniuk.com/additional-canada-pension-plan-cpp-contributions-required-for-2024/
+https://www.revenuquebec.ca/en/online-services/forms-and-publications/current-details/tp-1015-ta-v/
+
+Ontario Health Premium
+https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html#_Toc333578512
+
+Surtax
+https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html
