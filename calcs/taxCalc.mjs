@@ -1,5 +1,3 @@
-import round from '../util/round.mjs';
-
 // surtax: https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html
 export default class TaxCalc {
 
@@ -8,7 +6,7 @@ export default class TaxCalc {
     }
 
     calculateTaxes(taxableIncome, region) {
-        return round(this.#calculateTotalAmountByTier(taxableIncome, this.taxData[region].brackets), 2);
+        return this.#calculateTotalAmountByTier(taxableIncome, this.taxData[region].brackets);
     }
 
     calculateRegionalSurtax(regionalTaxLessCredits, region) {
@@ -18,7 +16,7 @@ export default class TaxCalc {
             return 0;
         }
 
-        return round(this.#calculateTotalAmountByTier(Math.max(regionalTaxLessCredits, 0), surtaxBrackets), 2);
+        return this.#calculateTotalAmountByTier(Math.max(regionalTaxLessCredits, 0), surtaxBrackets);
     }
     
     #calculateTotalAmountByTier(amount, tierInfo) {

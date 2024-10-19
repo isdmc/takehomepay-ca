@@ -1,5 +1,3 @@
-import round from '../util/round.mjs';
-
 // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032on-jan/t4032on-january-general-information.html#_Toc333578512
 export default class OntarioHealthPremiumCalc {
     constructor(taxDataForYear) {
@@ -15,7 +13,7 @@ export default class OntarioHealthPremiumCalc {
             if (taxableIncome > bracket.rangeMin && taxableIncome <= bracket.rangeMax) {
                 let baseAmount = bracket.baseAmount;
                 let scaledAmount = bracket.previousBaseAmount + (taxableIncome - bracket.rangeMin) * bracket.rate;
-                return round(Math.min(baseAmount, scaledAmount), 2);
+                return Math.min(baseAmount, scaledAmount);
             }
         }
     }

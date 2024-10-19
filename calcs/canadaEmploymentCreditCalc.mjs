@@ -1,5 +1,3 @@
-import round from '../util/round.mjs';
-
 // https://support.hrblock.ca/en-ca/Content/Employed/WhatIsCanadaEmploymentAmount.htm
 export default class CanadaEmploymentCreditCalc {
 
@@ -12,7 +10,7 @@ export default class CanadaEmploymentCreditCalc {
             let canadaEmploymentAmountCreditMax = this.taxDataForYear[region].canadaEmploymentCreditAmount; 
             let regionalCreditRate = Math.min(...this.taxDataForYear[region].brackets.map(bracket => bracket.rate));
             let employmentCreditAmount = Math.min(canadaEmploymentAmountCreditMax, grossIncome);
-            return round(employmentCreditAmount * regionalCreditRate, 2);
+            return employmentCreditAmount * regionalCreditRate;
         } else {
             return 0;
         }

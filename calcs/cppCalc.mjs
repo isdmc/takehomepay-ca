@@ -1,5 +1,3 @@
-import round from '../util/round.mjs';
-
 // https://seniuk.com/additional-canada-pension-plan-cpp-contributions-required-for-2024/
 // https://www.canada.ca/en/revenue-agency/news/2023/05/the-canada-pension-plan-enhancement--businesses-individuals-and-self-employed-what-it-means-for-you.html
 export default class CPPCalc {
@@ -12,14 +10,14 @@ export default class CPPCalc {
     calculateCPPPremiums(taxableIncome) {
         let eligibleIncome = this.#calculateEligibleIncome(taxableIncome);
         let cppPremiums = eligibleIncome * this.cppData.baseContributionRate;
-        return round(cppPremiums, 2);
+        return cppPremiums;
     }
 
     calculateCPPEnhancedPremiums(grossIncome) {
         let cppAdditionalAmountPremium = this.#calculateFirstAdditionalCPPDeduction(grossIncome);
         let cpp2Premium = this.#calculateCPP2Deduction(grossIncome);
 
-        return round(cppAdditionalAmountPremium + cpp2Premium, 2);
+        return cppAdditionalAmountPremium + cpp2Premium;
     }
 
     // This amount is a tax credit (i.e subtracted from taxes owed)
@@ -27,7 +25,7 @@ export default class CPPCalc {
         let cppPremiums = this.calculateCPPPremiums(taxableIncome);
         let regionalCreditRate = (region === 'Quebec' || region === 'Federal') ? this.cppData.creditRate : Math.min(...this.taxBracketsForRegion.map(bracket => bracket.rate));
 
-        return round(regionalCreditRate * cppPremiums, 2);
+        return regionalCreditRate * cppPremiums;
     }
 
     calculateCPPTaxDeduction(grossIncome) {

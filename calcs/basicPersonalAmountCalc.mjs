@@ -1,5 +1,3 @@
-import round from '../util/round.mjs';
-
 export default class BasicPersonalAmountCreditCalc {
 
     constructor(taxInfoForYear) {
@@ -11,10 +9,10 @@ export default class BasicPersonalAmountCreditCalc {
     // https://www.fidelity.ca/en/insights/articles/personal-amount-tax-credit-guide/
     calculateBasicPersonalAmountTaxCredit = function(taxableIncome, region) {
         if (region == 'Federal' || region === 'Yukon') {
-            return round(this.#calculateScaledBasicPersonalAmountCredit(taxableIncome, region), 2);
+            return this.#calculateScaledBasicPersonalAmountCredit(taxableIncome, region);
         } else {
             let regionalBasicPersonalAmountCreditRate = Math.min(...this.taxInfoForYear[region].brackets.map(bracket => bracket.rate));
-            return round(this.taxInfoForYear[region].basicPersonalAmount * regionalBasicPersonalAmountCreditRate, 2);
+            return this.taxInfoForYear[region].basicPersonalAmount * regionalBasicPersonalAmountCreditRate;
         }
     }
 
