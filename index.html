@@ -46,8 +46,9 @@
                 <label for="payFrequency">Select Pay Frequency</label>
                 <select name="payFrequency" id="payFrequency">
                     <option value="Monthly">Monthly</option>
+                    <option value="Semi-Monthly">Semi-Monthly</option>
+                    <option value="Bi-Weekly">Bi-Weekly</option>
                     <option value="Weekly">Weekly</option>
-                    <option value="Bi-weekly">Bi-weekly</option>
                 </select>   
                 <br><br>
                 <button name="calc" id="calc">Calculate</button>
@@ -175,9 +176,27 @@
             </details>
             <hr>
             <details>
+            <summary>Sample Paystub</summary>
+                <ul>
+                    <li>Gross Earnings</li>
+                    <ul>
+                        <li>Salary</li>
+                    </ul>
+                    <li>Deductions</li>
+                    <ul>
+                        <li>Tax</li>
+                        <li>CPP</li>
+                        <li>CPP2</li>
+                        <li>EI</li>
+                    </ul>
+                </ul>
+                </details>
             <hr>
             <b>Take Home Pay:</b>
-            <span id="takehomepay">-</span>
+            <span id="takehomePay">-</span>
+            <br>
+            <b>Take Home Pay per paycheck:</b>
+            <span id="takehomePayPerPaycheck">-</span>
         </div>
     </body>
 </html>

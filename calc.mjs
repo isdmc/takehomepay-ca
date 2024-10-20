@@ -1,4 +1,5 @@
 import taxData from './data/taxData.mjs';
+import payFrequencyMap from './data/payFrequencyMap.mjs';
 import CalcFactory from './calcs/calcFactory.mjs';
 import toDollarFormat from './util/toDollarFormat.mjs';
 
@@ -6,6 +7,8 @@ export function calcMain() {
     let grossIncome = document.getElementById('grossPay').value;
     let year = document.getElementById('taxYear').value;
     let region = document.getElementById('region').value;
+    let payFrequency = document.getElementById('payFrequency').value;
+    let payFrequencyDivisor = payFrequencyMap[payFrequency];
 
     let debug = true;
     let calcs = getCalculators(taxData, year, region);
@@ -16,7 +19,7 @@ export function calcMain() {
         premiums: {},
         credits: {},
         netTaxes: {},
-        netPay: 0
+        netPay: {}
     };
 
     calculateDeductions(results, grossIncome, calcs);
@@ -26,7 +29,7 @@ export function calcMain() {
     calculatePremiums(results, grossIncome, taxableIncome, region, calcs)
     calculateCredits(results, region, grossIncome, calcs);
     calculateNetTaxes(results, region, calcs);
-    calculateNetPay(results, grossIncome);
+    calculateNetPay(results, grossIncome, payFrequencyDivisor);
 
     displayResults(results);
 
@@ -108,9 +111,10 @@ function calculateNetTaxes(results, region, calcs)
     results.netTaxes.netTaxes = results.netTaxes.netTaxesFederal + results.netTaxes.netTaxesRegional;
 }
 
-function calculateNetPay(results, grossIncome)
+function calculateNetPay(results, grossIncome, payFrequencyDivisor)
 {
-    results.netPay = grossIncome - (results.netTaxes.netTaxes + results.premiums.totalPremiums);   
+    results.netPay.total = grossIncome - (results.netTaxes.netTaxes + results.premiums.totalPremiums);
+    results.netPay.perPayCheck = results.netPay.total / payFrequencyDivisor;   
 }
 
 function displayResults(results)
@@ -153,8 +157,10 @@ function displayResults(results)
     regionalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditRegional);
     totalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditFederal + results.credits.employmentAmountCreditRegional);
 
-    let takehomepayElement = document.getElementById('takehomepay');
-    takehomepayElement.textContent = toDollarFormat(results.netPay);
+    let takehomePayElement = document.getElementById('takehomePay');
+    takehomePayElement.textContent = toDollarFormat(results.netPay.total);
+    let takehomePayPerPaycheckElement = document.getElementById('takehomePayPerPaycheck');
+    takehomePayPerPaycheckElement.textContent = toDollarFormat(results.netPay.perPayCheck);
 }
 
 function printDebug(year, region, grossIncome, results)
@@ -188,5 +194,5 @@ function printDebug(year, region, grossIncome, results)
     console.log(`Net Taxes: ${results.netTaxes.netTaxes}`);
     console.log(`Total Taxes and Premiums: ${results.netTaxes.netTaxes + results.premiums.totalPremiums}`);
     console.log('\n----------------- NET PAY  --------------------');
-    console.log(`Net Pay: ${results.netPay}`);
+    console.log(`Net Pay: ${results.netPay.total}`);
 }
