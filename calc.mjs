@@ -103,17 +103,18 @@ function calculateCredits(results, region, grossIncome, calcs)
     results.credits.totalCredits = results.credits.federalCredits + results.credits.regionalCredits;
 }
 
+// Taxes and Premiums?
 function calculateNetTaxes(results, region, calcs)
 {
     results.netTaxes.netTaxesFederal = results.taxes.federalTax - results.credits.federalCredits;
-    let regionalSurtax = calcs.taxCalc.calculateRegionalSurtax(results.taxes.regionalTax - results.credits.regionalCredits, region);
-    results.netTaxes.netTaxesRegional = (results.taxes.regionalTax - results.credits.regionalCredits) + regionalSurtax + results.premiums.ontarioHealthPremium;
+    results.taxes.regionalSurtax = calcs.taxCalc.calculateRegionalSurtax(results.taxes.regionalTax - results.credits.regionalCredits, region);
+    results.netTaxes.netTaxesRegional = (results.taxes.regionalTax - results.credits.regionalCredits) + results.taxes.regionalSurtax + results.premiums.ontarioHealthPremium;
     results.netTaxes.netTaxes = results.netTaxes.netTaxesFederal + results.netTaxes.netTaxesRegional;
 }
 
 function calculateNetPay(results, grossIncome, payFrequencyDivisor)
 {
-    results.netPay.total = grossIncome - (results.netTaxes.netTaxes + results.premiums.totalPremiums);
+    results.netPay.total = grossIncome - (results.netTaxes.netTaxes + results.premiums.cppPremiums + results.premiums.eiPremiums);
     results.netPay.perPayCheck = results.netPay.total / payFrequencyDivisor;   
 }
 
@@ -121,41 +122,45 @@ function displayResults(results)
 {
     let federalTaxesElement = document.getElementById('federalTaxes');
     let regionalTaxesElement = document.getElementById('regionalTaxes');
-    let totalTaxesElement = document.getElementById('totalTaxes');
-    federalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesFederal);
-    regionalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesRegional);
-    totalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxes);
+    let surtaxElement = document.getElementById('surtax');
+    let ontarioHealthPremium = document.getElementById('ontarioHealthPremium');
+    federalTaxesElement.textContent = toDollarFormat(results.taxes.federalTax);
+    regionalTaxesElement.textContent = toDollarFormat(results.taxes.regionalTax);
+    surtaxElement.textContent = toDollarFormat(results.taxes.regionalSurtax);
+    ontarioHealthPremium.textContent = toDollarFormat(results.premiums.ontarioHealthPremium);
 
-    let cppDeductionElement = document.getElementById('CPPDeduction');
+    let cppPremiumsElement = document.getElementById('cppPremiums');
+    let eiPremiumsElement = document.getElementById('eiPremiums');
+    cppPremiumsElement.textContent = toDollarFormat(results.premiums.cppPremiums);
+    eiPremiumsElement.textContent = toDollarFormat(results.premiums.eiPremiums);
+
+    let cppDeductionElement = document.getElementById('cpp2Deduction');
     cppDeductionElement.textContent = toDollarFormat(results.deductions.cppDeduction);
 
     let federalBasicPersonalAmountElement = document.getElementById('federalBasicPersonalAmountCredit');
     let regionalBasicPersonalAmountElement = document.getElementById('regionalBasicPersonalAmountCredit');
-    let totalBasicPersonalAmountElement = document.getElementById('totalBasicPersonalAmountCredit');
     federalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditFederal);
     regionalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditRegional);
-    totalBasicPersonalAmountElement.textContent = toDollarFormat(results.credits.basicPersonalAmountCreditFederal + results.credits.basicPersonalAmountCreditRegional);
 
     let federalCPPCreditElement = document.getElementById('federalCPPCredit');
     let regionalCPPCreditElement = document.getElementById('regionalCPPCredit');
-    let totalCPPCreditElement = document.getElementById('totalCPPCredit');
     federalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditFederal);
     regionalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditRegional);
-    totalCPPCreditElement.textContent = toDollarFormat(results.credits.cppCreditFederal + results.credits.cppCreditRegional);
 
     let federalEICreditElement = document.getElementById('federalEICredit');
     let regionalEICreditElement = document.getElementById('regionalEICredit');
-    let totalEICreditElement = document.getElementById('totalEICredit');
     federalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditFederal);
     regionalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditRegional);
-    totalEICreditElement.textContent = toDollarFormat(results.credits.eiCreditFederal + results.credits.eiCreditRegional);
 
     let federalEmploymentAmountCreditElement = document.getElementById('federalEmploymentAmountCredit');
     let regionalEmploymentAmountCreditElement = document.getElementById('regionalEmploymentAmountCredit');
-    let totalEmploymentAmountCreditElement = document.getElementById('totalEmploymentAmountCredit');
     federalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditFederal);
     regionalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditRegional);
-    totalEmploymentAmountCreditElement.textContent = toDollarFormat(results.credits.employmentAmountCreditFederal + results.credits.employmentAmountCreditRegional);
+
+    let netFederalTaxesElement = document.getElementById('netTaxesFederal');
+    let netRegionalTaxesElement = document.getElementById('netTaxesRegional');
+    netFederalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesFederal);
+    netRegionalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesRegional);
 
     let takehomePayElement = document.getElementById('takehomePay');
     takehomePayElement.textContent = toDollarFormat(results.netPay.total);

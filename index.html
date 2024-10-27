@@ -17,13 +17,20 @@
             <h1>
                 Takehome Pay Calculator
             </h1>
+            <details>
+                <summary>About</summary>
+                This calculator is meant to estimate annual and per-paycheck take-home pay for a simple tax situation. Specifically, for Canadian workers who earn income from only 
+                a salary and are eligible for standard deductions and credits. It also aims to be clear in how take home pay is determined by optionally displaying intermediate tax, premium, deduction and
+                credit amounts in addition to the final result.
+            </details>
+            <hr>
             <div>
-                <label for="taxYear">Select Tax Year</label>
+                <label for="taxYear">Tax Year</label>
                 <select name="taxYear" id="taxYear" disabled="true">
                     <option value=2024>2024</option>
                 </select>
                 <br> <br>
-                <label for="region">Select Province/Territory</label>
+                <label for="region">Province/Territory</label>
                 <select name="region" id="region">
                     <option value='Alberta'>Alberta</option>
                     <option value='British Columbia'>British Columbia</option>
@@ -40,7 +47,7 @@
                     <option value='Yukon'>Yukon</option>
                 </select>
                 <br> <br>
-                <label for="grossPay">Enter Gross Annual Pay:</label>
+                <label for="grossPay">Gross Annual Pay:</label>
                 <input name="grossPay" id="grossPay" type="text"></input>
                 <br> <br>
                 <label for="payFrequency">Select Pay Frequency</label>
@@ -59,144 +66,161 @@
                 <br>
                 <table>
                     <tr>
-                        <th>
-                            Federal Taxes
-                        </th>
-                        <th>
-                            Regional Taxes
-                        </th>
-                        <th>
-                            Total
-                        </th>
-                    </tr>
-                    <tr>
-                        <td id="federalTaxes">
-                            -
+                        <td>
+                            CPP2 Deduction
                         </td>
-                        <td id="regionalTaxes">
-                            -
-                        </td>
-                        <td id="totalTaxes">
-                            -
+                        <td class="positive" id="cpp2Deduction">
+                            0
                         </td>
                     </tr>
                 </table>
                 <br>
                 <table>
                     <tr>
-                        <th>
-                            Deduction
-                        </th>
-                        <th>
-                            Total
-                        </th>
+                        <td>
+                            Taxes - Federal
+                        </td>
+                        <td class="negative" id="federalTaxes">
+                            0
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            CPP
+                            Taxes - Regional
                         </td>
-                        <td id="CPPDeduction">
-                            -
+                        <td class="negative" id="regionalTaxes">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Surtax
+                        </td>
+                        <td class="negative" id="surtax">
+                            0
                         </td>
                     </tr>
                 </table>
                 <br>
                 <table>
                     <tr>
-                        <th>
-                            Credit
-                        </th>
-                        <th>
-                            Federal Credits
-                        </th>
-                        <th>
-                            Regional Credits
-                        </th>
-                        <th>
-                            Total
-                        </th>
-                    </tr>
-                    <tr>
                         <td>
-                            Basic Personal Amount
+                            CPP/QPP Premiums
                         </td>
-                        <td id="federalBasicPersonalAmountCredit">
-                            -
-                        </td>
-                        <td id="regionalBasicPersonalAmountCredit">
-                            -
-                        </td>
-                        <td id="totalBasicPersonalAmountCredit">
-                            -
+                        <td class="negative" id="cppPremiums">
+                            0
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            CPP
+                            EI/QPIP Premiums
                         </td>
-                        <td id="federalCPPCredit">
-                            -
-                        </td>
-                        <td id="regionalCPPCredit">
-                            -
-                        </td>
-                        <td id="totalCPPCredit">
-                            -
+                        <td class="negative" id="eiPremiums">
+                            0
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            EI
+                            Ontario Health Premium
                         </td>
-                        <td id="federalEICredit">
-                            -
+                        <td class="negative" id="ontarioHealthPremium">
+                            0
                         </td>
-                        <td id="regionalEICredit">
-                            -
+                    </tr>
+                </table>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            Basic Personal Amount Credit - Federal
                         </td>
-                        <td id="totalEICredit">
-                            -
+                        <td class="positive" id="federalBasicPersonalAmountCredit">
+                            0
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Employment Amount
+                            Basic Personal Amount Credit - Regional
                         </td>
-                        <td id="federalEmploymentAmountCredit">
-                            -
+                        <td class="positive" id="regionalBasicPersonalAmountCredit">
+                            0
                         </td>
-                        <td id="regionalEmploymentAmountCredit">
-                            -
+                    </tr>
+                    <tr>
+                        <td>
+                            CPP Credit - Federal
                         </td>
-                        <td id="totalEmploymentAmountCredit">
-                            -
+                        <td class="positive" id="federalCPPCredit">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            CPP Credit - Regional
+                        </td>
+                        <td class="positive" id="regionalCPPCredit">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            EI Credit - Federal
+                        </td>
+                        <td class="positive" id="federalEICredit">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            EI Credit - Regional
+                        </td>
+                        <td class="positive" id="regionalEICredit">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Employment Amount Credit - Federal
+                        </td>
+                        <td class="positive" id="federalEmploymentAmountCredit">
+                            0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Employment Amount Credit - Regional
+                        </td>
+                        <td class="positive" id="regionalEmploymentAmountCredit">
+                            0
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            Net Taxes - Federal
+                        </td>
+                        <td class="negative" id="netTaxesFederal">
+                           0 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Net Taxes - Regional
+                        </td>
+                        <td class="negative" id="netTaxesRegional">
+                            0
                         </td>
                     </tr>
                 </table>
             </details>
             <hr>
-            <details>
-            <summary>Sample Paystub</summary>
-                <ul>
-                    <li>Gross Earnings</li>
-                    <ul>
-                        <li>Salary</li>
-                    </ul>
-                    <li>Deductions</li>
-                    <ul>
-                        <li>Tax</li>
-                        <li>CPP</li>
-                        <li>CPP2</li>
-                        <li>EI</li>
-                    </ul>
-                </ul>
-                </details>
-            <hr>
             <b>Take Home Pay:</b>
-            <span id="takehomePay">-</span>
+            <span class="positive" id="takehomePay">-</span>
             <br>
             <b>Take Home Pay per paycheck:</b>
-            <span id="takehomePayPerPaycheck">-</span>
+            <span class="positive" id="takehomePayPerPaycheck">-</span>
         </div>
     </body>
 </html>
