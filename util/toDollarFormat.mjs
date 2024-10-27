@@ -1,3 +1,5 @@
-export default function(num, decimalsToKeep = 2, locale = 'en') {
-    return num.toFixed(decimalsToKeep).toLocaleString(locale);
+const dollarFormat = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD'});
+
+export default function(num) {
+    return dollarFormat.format(num);
 }
