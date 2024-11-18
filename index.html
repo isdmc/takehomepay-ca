@@ -14,52 +14,108 @@
             });
         </script>
         <div>
-            <h1>
-                Takehome Pay Calculator
-            </h1>
+            <div class="align-items">
+                <img class="img-align" src="assets/canada.svg" width="150">
+                &nbsp;
+                <h1 style="display: inline-block;">TakehomePay.ca</h1>
+            </div>
+            <br>
             <details>
                 <summary>About</summary>
-                This calculator is meant to estimate annual and per-paycheck take-home pay for a simple tax situation. Specifically, for Canadian workers who earn income from only 
-                a salary and are eligible for standard deductions and credits. It also aims to be clear in how take home pay is determined by optionally displaying intermediate tax, premium, deduction and
+                This calculator estimates annual and per-paycheck take-home pay for a simple tax situation. Specifically, for Canadian workers who earn income from only 
+                a salary and are eligible for standard deductions and credits. It also aims to be clear in how take home pay is determined by including intermediate tax, premium, deduction and
                 credit amounts in addition to the final result.
             </details>
             <hr>
-            <div>
-                <label for="taxYear">Tax Year</label>
-                <select name="taxYear" id="taxYear" disabled="true">
-                    <option value=2024>2024</option>
-                </select>
-                <br> <br>
-                <label for="region">Province/Territory</label>
-                <select name="region" id="region">
-                    <option value='Alberta'>Alberta</option>
-                    <option value='British Columbia'>British Columbia</option>
-                    <option value='Manitoba'>Manitoba</option>
-                    <option value='New Brunswick'>New Brunswick</option>
-                    <option value='Newfoundland and Labrador'>Newfoundland and Labrador</option>
-                    <option value='Northwest Territories'>Northwest Territories</option>
-                    <option value='Nova Scotia'>Nova Scotia</option>
-                    <option value='Nunavut'>Nunavut</option>
-                    <option value='Ontario'>Ontario</option>
-                    <option value='Prince Edward Island'>Prince Edward Island</option>
-                    <option value='Quebec'>Quebec</option>
-                    <option value='Saskatchewan'>Saskatchewan</option>
-                    <option value='Yukon'>Yukon</option>
-                </select>
-                <br> <br>
-                <label for="grossPay">Gross Annual Pay:</label>
-                <input name="grossPay" id="grossPay" type="text"></input>
-                <br> <br>
-                <label for="payFrequency">Select Pay Frequency</label>
-                <select name="payFrequency" id="payFrequency">
-                    <option value="Monthly">Monthly</option>
-                    <option value="Semi-Monthly">Semi-Monthly</option>
-                    <option value="Bi-Weekly">Bi-Weekly</option>
-                    <option value="Weekly">Weekly</option>
-                </select>   
-                <br><br>
-                <button name="calc" id="calc">Calculate</button>
+            <div class="input-grid">
+                <div class="selected-option-label grid-1-1">Year</div>
+                <div class="selected-option-label grid-2-1">Province</div>
+                <div class="selected-option-label grid-3-1">Pay Frequency</div>
+                <div class="selected-option-label grid-4-1">Gross Annual Pay</div>
+                <div id="selected-year" class="selected-option grid-1-2">
+                    <span class="selection-pad">2024</span>
+                </div>
+                <div id="year-options" class="dropdown-container grid-1-2">
+                    <div class="dropdown-item">
+                        2024
+                    </div>
+                    <div class="dropdown-item">
+                        2025
+                    </div>
+                </div>
+                <div id="selected-region" class="selected-option grid-2-2">
+                    <img class="img-align selection-pad" width="75" src="assets/alberta.svg">
+                    <span>Alberta</span>
+                </div>
+                <div id="region-options" class="dropdown-container grid-2-2">
+                    <div class="dropdown-item">
+                        <img src="assets/alberta.svg" width="75">Alberta
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/british-columbia.svg" width="75">British Columbia
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/manitoba.svg" width="75">Manitoba
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/new-brunswick.svg" width="75">New Brunswick
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/newfoundland-and-labrador.svg" width="75">Newfoundland and Labrador
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/northwest-territories.svg" width="75">Northwest Territories
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/nova-scotia.svg" width="75">Nova Scotia
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/nunavut.svg" width="75">Nunavut
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/ontario.svg" width="75">Ontario
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/prince-edward-island.svg" width="75">Prince Edward Island
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/quebec.svg" width="75">Quebec
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/saskatchewan.svg" width="75">Saskatchewan
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/yukon.svg" width="75">Yukon
+                    </div>
+                </div>
+
+                <div id="selected-frequency" class="selected-option grid-3-2">
+                    <img class="img-align" width="60" src="assets/calendar-monthly.png">
+                    <span>Monthly</span>
+                </div>
+                <div id="frequency-options" class="dropdown-container grid-3-2">
+                    <div class="dropdown-item">
+                        <img src="assets/calendar-monthly.png" width="60">Monthly
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/calendar-semi-monthly.png" width="60">Semi-Monthly
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/calendar-bi-weekly.png" width="60">Bi-Weekly
+                    </div>
+                    <div class="dropdown-item">
+                        <img src="assets/calendar-weekly.png" width="60">Weekly
+                    </div>
+                </div>
+                <input
+                    class="selected-option grid-2-4 gross-pay-input"
+                    name="grossPay"
+                    id="grossPay"
+                    type="text">
+                </input>
             </div>
+            <br>
+            <button class="calc-button" name="calc" id="calc">Calculate</button>
             <hr>
             <details>
                 <summary>Calculation Details</summary>
@@ -222,6 +278,130 @@
             <b>Take Home Pay per paycheck:</b>
             <span class="positive" id="takehomePayPerPaycheck">-</span>
         </div>
+        <script>
+            function showHideOptions(selectedOptionsId) {
+                let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
+                let selectedOptionsElement = document.getElementById(selectedOptionsId);
+                let otherOptionElementIds = optionElementIds.filter(id => id !== selectedOptionsId);
+                let otherOptionsElements = otherOptionElementIds.map(id => document.getElementById(id));
+
+                if (getComputedStyle(selectedOptionsElement).display === 'none') {
+                    selectedOptionsElement.style.display = 'inline';
+                    for (let e of otherOptionsElements)
+                    {
+                        e.style.display = 'none';
+                    }
+                } else {
+                    selectedOptionsElement.style.display = 'none';
+                }
+            }
+
+            function hideAllOptions()
+            {
+                let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
+                let optionElements = optionElementIds.map(id => document.getElementById(id));
+                for (let e of optionElements)
+                {
+                    e.style.display = 'none';
+                }
+            }
+
+            function getRegionImagePathByName(regionName) {
+                switch(regionName) {
+                    case 'Alberta':
+                        return 'assets/alberta.svg';
+                    case 'British Columbia':
+                        return 'assets/british-columbia.svg';
+                    case 'Manitoba':
+                        return 'assets/manitoba.svg';
+                    case 'New Brunswick':
+                        return 'assets/new-brunswick.svg';
+                    case 'Newfoundland and Labrador':
+                        return 'assets/newfoundland-and-labrador.svg';
+                    case 'Northwest Territories':
+                        return 'assets/northwest-territories.svg';
+                    case 'Nova Scotia':
+                        return 'assets/nova-scotia.svg';
+                    case 'Nunavut':
+                        return 'assets/nunavut.svg';    
+                    case 'Ontario':
+                        return 'assets/ontario.svg';
+                    case 'Prince Edward Island':
+                        return 'assets/prince-edward-island.svg';
+                    case 'Quebec':
+                        return 'assets/quebec.svg';
+                    case 'Saskatchewan':
+                        return 'assets/saskatchewan.svg';
+                    case 'Yukon':
+                        return 'assets/yukon.svg';
+                }
+            }
+
+            function getFrequencyImagePathByName(frequencyName) {
+                switch(frequencyName) {
+                    case 'Monthly':
+                        return 'assets/calendar-monthly.png';
+                    case 'Semi-Monthly':
+                        return 'assets/calendar-semi-monthly.png';
+                    case 'Bi-Weekly':
+                        return 'assets/calendar-bi-weekly.png';
+                    case 'Weekly':
+                        return 'assets/calendar-weekly.png';
+                }
+            }
+
+            function updateSelectedYear(event) {
+                let updatedYear = event.target.innerText;
+                let selectedYearElement = document.getElementById('selected-year');
+                let selectedYear = selectedYearElement.querySelector('span');
+                selectedYear.innerText = updatedYear;
+            }
+
+            function updateSelectedRegion(event) {
+                let updatedRegion = event.target.innerText; 
+                let selectedRegionElement = document.getElementById('selected-region');
+                let selectedRegionImageElement = selectedRegionElement.querySelector('img');
+                let selectedRegionNameElement = selectedRegionElement.querySelector('span');
+
+                selectedRegionImageElement.src = getRegionImagePathByName(updatedRegion);
+                selectedRegionNameElement.innerText = updatedRegion;
+            }
+
+            function updateSelectedFrequency(event) {
+                let updatedFrequency = event.target.innerText;
+                let selectedFrequencyElement = document.getElementById('selected-frequency');
+                let selectedFrequencyImageElement = selectedFrequencyElement.querySelector('img');
+                let selectedFrequencyNameElement = selectedFrequencyElement.querySelector('span');
+
+                selectedFrequencyImageElement.src = getFrequencyImagePathByName(updatedFrequency);
+                selectedFrequencyNameElement.innerText = updatedFrequency;
+            }
+        </script>
+        <script>
+            let selectedYearElement = document.getElementById('selected-year');
+            selectedYearElement.addEventListener('click', (event) => showHideOptions('year-options'));
+
+            let selectedRegionElement = document.getElementById('selected-region');
+            selectedRegionElement.addEventListener('click', (event) => showHideOptions('region-options'));
+
+            let selectedFrequencyElement = document.getElementById('selected-frequency');
+            selectedFrequencyElement.addEventListener('click', (event) => showHideOptions('frequency-options'));
+
+            let yearDropdownOptionElements = document.querySelectorAll('#year-options > .dropdown-item');
+            for (let option of yearDropdownOptionElements) {
+                option.addEventListener('click', (event) => updateSelectedYear(event));
+            }
+
+            let regionDropdownOptionElements = document.querySelectorAll('#region-options > .dropdown-item');
+            for (let option of regionDropdownOptionElements) {
+                option.addEventListener('click', (event) => updateSelectedRegion(event));
+            }
+
+            let frequencyDropdownOptionElements = document.querySelectorAll('#frequency-options > .dropdown-item');
+            for (let option of frequencyDropdownOptionElements) {
+                option.addEventListener('click', (event) => updateSelectedFrequency(event));
+            }
+        </script>
     </body>
 </html>
 

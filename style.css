@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 table, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -14,4 +18,103 @@ td {
 
 .negative {
     color: red;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    row-gap: 5px;
+    position: relative;
+}
+
+.grid-1-1 {
+    grid-row: 1; grid-column: 1;
+}
+
+.grid-2-1 {
+    grid-row: 2; grid-column: 1;
+}
+
+.grid-3-1 {
+    grid-row: 3; grid-column: 1;
+}
+
+.grid-4-1 {
+    grid-row: 4; grid-column: 1;
+}
+
+.grid-1-2 {
+    grid-row: 1; grid-column: 2;
+}
+
+.grid-2-2 {
+    grid-row: 2; grid-column: 2;
+}
+
+.grid-3-2 {
+    grid-row: 3; grid-column: 2;
+}
+
+.grid-4-2 {
+    grid-row: 4; grid-column: 2;
+}
+
+
+.align-items {
+    display: flex;
+    align-items: stretch;
+}
+
+.img-align {
+    vertical-align: middle;
+}
+
+.selection-pad {
+    padding: 3px;
+}
+
+.calc-button {
+    font-family: Arial;
+}
+
+.dropdown-container {
+    position: absolute;
+    background-color: white;
+    overflow-y: scroll;
+    max-height: 100%;
+    border: solid 1px;
+    border-color: black;
+}
+
+div.dropdown-item:hover {
+    background-color: lightcyan;
+}
+
+.selected-option-label {
+    display: flex; 
+    align-items: center;
+    border: solid 1px;
+    border-color: black;
+    background-color: lightgray;
+}
+
+.selected-option {
+    border: solid 1px;
+    border-color: black;
+    border-left: none;
+}
+
+#year-options {
+    display: none;
+    margin-top: 20px;
+}
+
+#region-options {
+    display: none;
+    margin-top: 44px;
+}
+
+#frequency-options {
+    display: none;
+    margin-top: 60.5px; 
 }

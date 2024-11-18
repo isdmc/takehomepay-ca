@@ -5,9 +5,9 @@ import toDollarFormat from './util/toDollarFormat.mjs';
 
 export function calcMain() {
     let grossIncome = document.getElementById('grossPay').value;
-    let year = document.getElementById('taxYear').value;
-    let region = document.getElementById('region').value;
-    let payFrequency = document.getElementById('payFrequency').value;
+    let year = document.querySelector('#selected-year > span').textContent;
+    let region = document.querySelector('#selected-region > span').textContent;
+    let payFrequency = document.querySelector('#selected-frequency > span').textContent;
     let payFrequencyDivisor = payFrequencyMap[payFrequency];
 
     let debug = true;
