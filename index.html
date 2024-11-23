@@ -378,6 +378,20 @@
             }
         </script>
         <script>
+            document.addEventListener('click', (event) => {
+                let dropdownElementIds = [
+                    'selected-region',
+                    'region-options',
+                    'selected-frequency',
+                    'frequency-options',
+                    'selected-year',
+                    'year-options'
+                ];
+                if (!optionElementIds.includes(event.target.id)) {
+                    hideAllOptions()
+                }
+            })
+
             let selectedYearElement = document.getElementById('selected-year');
             selectedYearElement.addEventListener('click', (event) => showHideOptions('year-options'));
 
