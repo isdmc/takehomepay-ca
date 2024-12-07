@@ -8,10 +8,56 @@
     </head>
     <body>
         <script type="module">
-            import { calcMain } from "./calc.mjs" 
+            import calcMain from "./calc.mjs"
+            import toDollarFormat from './util/toDollarFormat.mjs';
+
             document.querySelector("#calc").addEventListener('click', () => {
-                calcMain();
+                let grossIncomeInput = document.getElementById('grossPay').value;
+                let parsedIncome = parseIncomeInput(grossIncomeInput);
+                if (parsedIncome)
+                {
+                    hideInvalidInputMessage();
+                    document.getElementById('grossPay').value = toDollarFormat(parsedIncome);
+
+                    let year = document.querySelector('#selected-year > span').textContent;
+                    let region = document.querySelector('#selected-region > span').textContent;
+                    let payFrequency = document.querySelector('#selected-frequency > span').textContent;
+                    calcMain(parsedIncome, year, region, payFrequency);
+                } else {
+                    showInvalidInputMessage();
+                }
             });
+        </script>
+        <script>
+            function parseIncomeInput(incomeInputStr) {
+                const minValue = 0;
+                const maxValue = 100*1000*1000;
+                let sanitizedInputStr = incomeInputStr.replace(/(,|\s|\$)/g, '');
+                let validDollarValueRegex = new RegExp(/^\d+(\.(\d){1,2})?$/);
+
+                if (validDollarValueRegex.test(sanitizedInputStr))
+                {
+                    let parsedValue = parseFloat(sanitizedInputStr);
+
+                    if (parsedValue >= minValue && parsedValue <= maxValue ) {
+                        return parsedValue;
+                    }
+                    return null;
+                }
+                return null;
+            }
+
+            function showInvalidInputMessage()
+            {
+                let message = document.getElementById('validity-message');
+                message.style.display = 'inline';
+            }
+
+            function hideInvalidInputMessage()
+            {
+                let message = document.getElementById('validity-message');
+                message.style.display = 'none';
+            }
         </script>
         <div>
             <div class="align-items">
@@ -113,6 +159,10 @@
                     id="grossPay"
                     type="text">
                 </input>
+            </div>
+            <div id="validity-message">
+                Input must be a number between 0 and 100,000,000
+                <br>
             </div>
             <br>
             <button class="calc-button" name="calc" id="calc">Calculate</button>
@@ -387,10 +437,10 @@
                     'selected-year',
                     'year-options'
                 ];
-                if (!optionElementIds.includes(event.target.id)) {
+                if (!dropdownElementIds.includes(event.target.id)) {
                     hideAllOptions()
                 }
-            })
+            });
 
             let selectedYearElement = document.getElementById('selected-year');
             selectedYearElement.addEventListener('click', (event) => showHideOptions('year-options'));

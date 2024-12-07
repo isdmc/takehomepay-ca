@@ -118,3 +118,10 @@ div.dropdown-item:hover {
     display: none;
     margin-top: 60.5px; 
 }
+
+#validity-message {
+    color: red;
+    font-style: italic;
+    font-size: small;
+    display: none;
+}

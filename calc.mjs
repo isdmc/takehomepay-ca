@@ -3,14 +3,10 @@ import payFrequencyMap from './data/payFrequencyMap.mjs';
 import CalcFactory from './calcs/calcFactory.mjs';
 import toDollarFormat from './util/toDollarFormat.mjs';
 
-export function calcMain() {
-    let grossIncome = document.getElementById('grossPay').value;
-    let year = document.querySelector('#selected-year > span').textContent;
-    let region = document.querySelector('#selected-region > span').textContent;
-    let payFrequency = document.querySelector('#selected-frequency > span').textContent;
+export default function calcMain(grossIncome, year, region, payFrequency) {
     let payFrequencyDivisor = payFrequencyMap[payFrequency];
 
-    let debug = true;
+    let debug = false;
     let calcs = getCalculators(taxData, year, region);
 
     let results = {
