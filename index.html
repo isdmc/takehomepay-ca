@@ -8,15 +8,16 @@
     </head>
     <body>
         <script type="module">
-            import calcMain from "./calc.mjs"
+            import calcMain from "./calc.mjs";
+            import * as incomeValidation from './ui-helpers/incomeValidation.mjs';
             import toDollarFormat from './util/toDollarFormat.mjs';
 
-            document.querySelector("#calc").addEventListener('click', () => {
+            document.getElementById("calc").addEventListener('click', () => {
                 let grossIncomeInput = document.getElementById('grossPay').value;
-                let parsedIncome = parseIncomeInput(grossIncomeInput);
+                let parsedIncome = incomeValidation.parseIncomeInput(grossIncomeInput);
                 if (parsedIncome)
                 {
-                    hideInvalidInputMessage();
+                    incomeValidation.hideInvalidInputMessage();
                     document.getElementById('grossPay').value = toDollarFormat(parsedIncome);
 
                     let year = document.querySelector('#selected-year > span').textContent;
@@ -24,40 +25,9 @@
                     let payFrequency = document.querySelector('#selected-frequency > span').textContent;
                     calcMain(parsedIncome, year, region, payFrequency);
                 } else {
-                    showInvalidInputMessage();
+                    incomeValidation.showInvalidInputMessage();
                 }
             });
-        </script>
-        <script>
-            function parseIncomeInput(incomeInputStr) {
-                const minValue = 0;
-                const maxValue = 100*1000*1000;
-                let sanitizedInputStr = incomeInputStr.replace(/(,|\s|\$)/g, '');
-                let validDollarValueRegex = new RegExp(/^\d+(\.(\d){1,2})?$/);
-
-                if (validDollarValueRegex.test(sanitizedInputStr))
-                {
-                    let parsedValue = parseFloat(sanitizedInputStr);
-
-                    if (parsedValue >= minValue && parsedValue <= maxValue ) {
-                        return parsedValue;
-                    }
-                    return null;
-                }
-                return null;
-            }
-
-            function showInvalidInputMessage()
-            {
-                let message = document.getElementById('validity-message');
-                message.style.display = 'inline';
-            }
-
-            function hideInvalidInputMessage()
-            {
-                let message = document.getElementById('validity-message');
-                message.style.display = 'none';
-            }
         </script>
         <div>
             <div class="align-items">
@@ -328,106 +298,9 @@
             <b>Take Home Pay per paycheck:</b>
             <span class="positive" id="takehomePayPerPaycheck">-</span>
         </div>
-        <script>
-            function showHideOptions(selectedOptionsId) {
-                let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
-                let selectedOptionsElement = document.getElementById(selectedOptionsId);
-                let otherOptionElementIds = optionElementIds.filter(id => id !== selectedOptionsId);
-                let otherOptionsElements = otherOptionElementIds.map(id => document.getElementById(id));
-
-                if (getComputedStyle(selectedOptionsElement).display === 'none') {
-                    selectedOptionsElement.style.display = 'inline';
-                    for (let e of otherOptionsElements)
-                    {
-                        e.style.display = 'none';
-                    }
-                } else {
-                    selectedOptionsElement.style.display = 'none';
-                }
-            }
-
-            function hideAllOptions()
-            {
-                let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
-                let optionElements = optionElementIds.map(id => document.getElementById(id));
-                for (let e of optionElements)
-                {
-                    e.style.display = 'none';
-                }
-            }
-
-            function getRegionImagePathByName(regionName) {
-                switch(regionName) {
-                    case 'Alberta':
-                        return 'assets/alberta.svg';
-                    case 'British Columbia':
-                        return 'assets/british-columbia.svg';
-                    case 'Manitoba':
-                        return 'assets/manitoba.svg';
-                    case 'New Brunswick':
-                        return 'assets/new-brunswick.svg';
-                    case 'Newfoundland and Labrador':
-                        return 'assets/newfoundland-and-labrador.svg';
-                    case 'Northwest Territories':
-                        return 'assets/northwest-territories.svg';
-                    case 'Nova Scotia':
-                        return 'assets/nova-scotia.svg';
-                    case 'Nunavut':
-                        return 'assets/nunavut.svg';    
-                    case 'Ontario':
-                        return 'assets/ontario.svg';
-                    case 'Prince Edward Island':
-                        return 'assets/prince-edward-island.svg';
-                    case 'Quebec':
-                        return 'assets/quebec.svg';
-                    case 'Saskatchewan':
-                        return 'assets/saskatchewan.svg';
-                    case 'Yukon':
-                        return 'assets/yukon.svg';
-                }
-            }
-
-            function getFrequencyImagePathByName(frequencyName) {
-                switch(frequencyName) {
-                    case 'Monthly':
-                        return 'assets/calendar-monthly.png';
-                    case 'Semi-Monthly':
-                        return 'assets/calendar-semi-monthly.png';
-                    case 'Bi-Weekly':
-                        return 'assets/calendar-bi-weekly.png';
-                    case 'Weekly':
-                        return 'assets/calendar-weekly.png';
-                }
-            }
-
-            function updateSelectedYear(event) {
-                let updatedYear = event.target.innerText;
-                let selectedYearElement = document.getElementById('selected-year');
-                let selectedYear = selectedYearElement.querySelector('span');
-                selectedYear.innerText = updatedYear;
-            }
-
-            function updateSelectedRegion(event) {
-                let updatedRegion = event.target.innerText; 
-                let selectedRegionElement = document.getElementById('selected-region');
-                let selectedRegionImageElement = selectedRegionElement.querySelector('img');
-                let selectedRegionNameElement = selectedRegionElement.querySelector('span');
-
-                selectedRegionImageElement.src = getRegionImagePathByName(updatedRegion);
-                selectedRegionNameElement.innerText = updatedRegion;
-            }
-
-            function updateSelectedFrequency(event) {
-                let updatedFrequency = event.target.innerText;
-                let selectedFrequencyElement = document.getElementById('selected-frequency');
-                let selectedFrequencyImageElement = selectedFrequencyElement.querySelector('img');
-                let selectedFrequencyNameElement = selectedFrequencyElement.querySelector('span');
-
-                selectedFrequencyImageElement.src = getFrequencyImagePathByName(updatedFrequency);
-                selectedFrequencyNameElement.innerText = updatedFrequency;
-            }
-        </script>
-        <script>
+        <script type="module">
+            import * as optionsScripts from './ui-helpers/options.mjs';
+ 
             document.addEventListener('click', (event) => {
                 let dropdownElementIds = [
                     'selected-region',
@@ -438,32 +311,32 @@
                     'year-options'
                 ];
                 if (!dropdownElementIds.includes(event.target.id)) {
-                    hideAllOptions()
+                    optionsScripts.hideAllOptions()
                 }
             });
 
             let selectedYearElement = document.getElementById('selected-year');
-            selectedYearElement.addEventListener('click', (event) => showHideOptions('year-options'));
+            selectedYearElement.addEventListener('click', (event) => optionsScripts.showHideOptions('year-options'));
 
             let selectedRegionElement = document.getElementById('selected-region');
-            selectedRegionElement.addEventListener('click', (event) => showHideOptions('region-options'));
+            selectedRegionElement.addEventListener('click', (event) => optionsScripts.showHideOptions('region-options'));
 
             let selectedFrequencyElement = document.getElementById('selected-frequency');
-            selectedFrequencyElement.addEventListener('click', (event) => showHideOptions('frequency-options'));
+            selectedFrequencyElement.addEventListener('click', (event) => optionsScripts.showHideOptions('frequency-options'));
 
             let yearDropdownOptionElements = document.querySelectorAll('#year-options > .dropdown-item');
             for (let option of yearDropdownOptionElements) {
-                option.addEventListener('click', (event) => updateSelectedYear(event));
+                option.addEventListener('click', (event) => optionsScripts.updateSelectedYear(event));
             }
 
             let regionDropdownOptionElements = document.querySelectorAll('#region-options > .dropdown-item');
             for (let option of regionDropdownOptionElements) {
-                option.addEventListener('click', (event) => updateSelectedRegion(event));
+                option.addEventListener('click', (event) => optionsScripts.updateSelectedRegion(event));
             }
 
             let frequencyDropdownOptionElements = document.querySelectorAll('#frequency-options > .dropdown-item');
             for (let option of frequencyDropdownOptionElements) {
-                option.addEventListener('click', (event) => updateSelectedFrequency(event));
+                option.addEventListener('click', (event) => optionsScripts.updateSelectedFrequency(event));
             }
         </script>
     </body>
