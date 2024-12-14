@@ -84,6 +84,7 @@ td {
     max-height: 100%;
     border: solid 1px;
     border-color: black;
+    cursor: pointer;
 }
 
 div.dropdown-item:hover {
@@ -102,6 +103,7 @@ div.dropdown-item:hover {
     border: solid 1px;
     border-color: black;
     border-left: none;
+    cursor: pointer;
 }
 
 #year-options {
