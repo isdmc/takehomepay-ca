@@ -310,34 +310,19 @@
                     'selected-year',
                     'year-options'
                 ];
+
                 if (!dropdownElementIds.includes(event.target.id)) {
                     optionsScripts.hideAllOptions()
                 }
             });
 
-            let selectedYearElement = document.getElementById('selected-year');
-            selectedYearElement.addEventListener('click', (event) => optionsScripts.showHideOptions('year-options'));
+            optionsScripts.addShowHideOptionsListener('selected-year', 'year-options');
+            optionsScripts.addShowHideOptionsListener('selected-region', 'region-options');
+            optionsScripts.addShowHideOptionsListener('selected-frequency', 'frequency-options');
 
-            let selectedRegionElement = document.getElementById('selected-region');
-            selectedRegionElement.addEventListener('click', (event) => optionsScripts.showHideOptions('region-options'));
-
-            let selectedFrequencyElement = document.getElementById('selected-frequency');
-            selectedFrequencyElement.addEventListener('click', (event) => optionsScripts.showHideOptions('frequency-options'));
-
-            let yearDropdownOptionElements = document.querySelectorAll('#year-options > .dropdown-item');
-            for (let option of yearDropdownOptionElements) {
-                option.addEventListener('click', (event) => optionsScripts.updateSelectedYear(event));
-            }
-
-            let regionDropdownOptionElements = document.querySelectorAll('#region-options > .dropdown-item');
-            for (let option of regionDropdownOptionElements) {
-                option.addEventListener('click', (event) => optionsScripts.updateSelectedRegion(event));
-            }
-
-            let frequencyDropdownOptionElements = document.querySelectorAll('#frequency-options > .dropdown-item');
-            for (let option of frequencyDropdownOptionElements) {
-                option.addEventListener('click', (event) => optionsScripts.updateSelectedFrequency(event));
-            }
+            optionsScripts.addUpdateSelectedOptionListener('year-options', optionsScripts.updateSelectedYear);
+            optionsScripts.addUpdateSelectedOptionListener('region-options', optionsScripts.updateSelectedRegion);
+            optionsScripts.addUpdateSelectedOptionListener('frequency-options', optionsScripts.updateSelectedFrequency);
         </script>
     </body>
 </html>

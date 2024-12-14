@@ -1,4 +1,14 @@
-export function showHideOptions(selectedOptionsId) {
+export function addShowHideOptionsListener(selectedOptionElementId, otherOptionsElementId) {
+    let optionAndChildElements = [document.getElementById(selectedOptionElementId), ...document.querySelectorAll(`#${selectedOptionElementId} > *`)];
+    for (let element of optionAndChildElements) {
+        element.addEventListener('click', (event) => { 
+            showHideOptions(otherOptionsElementId);
+            event.stopPropagation(); 
+        });
+    }
+}
+
+function showHideOptions(selectedOptionsId) {
     let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
     let selectedOptionsElement = document.getElementById(selectedOptionsId);
     let otherOptionElementIds = optionElementIds.filter(id => id !== selectedOptionsId);
@@ -15,8 +25,7 @@ export function showHideOptions(selectedOptionsId) {
     }
 }
 
-export function hideAllOptions()
-{
+export function hideAllOptions() {
     let optionElementIds = ['region-options', 'frequency-options', 'year-options'];
     let optionElements = optionElementIds.map(id => document.getElementById(id));
     for (let e of optionElements)
@@ -66,6 +75,13 @@ export function getFrequencyImagePathByName(frequencyName) {
             return 'assets/calendar-bi-weekly.png';
         case 'Weekly':
             return 'assets/calendar-weekly.png';
+    }
+}
+
+export function addUpdateSelectedOptionListener(selectedOptionId, selectedOptionCallback) {
+    let selectedOptionElements = document.querySelectorAll(`#${selectedOptionId} > .dropdown-item`);
+    for (let option of selectedOptionElements) {
+        option.addEventListener('click', (event) => selectedOptionCallback(event));
     }
 }
 
