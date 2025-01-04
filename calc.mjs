@@ -6,7 +6,7 @@ import toDollarFormat from './util/toDollarFormat.mjs';
 export default function calcMain(grossIncome, year, region, payFrequency) {
     let payFrequencyDivisor = payFrequencyMap[payFrequency];
 
-    let debug = false;
+    let debug = true;
     let calcs = getCalculators(taxData, year, region);
 
     let results = {
@@ -101,9 +101,9 @@ function calculateCredits(results, region, grossIncome, calcs)
 
 function calculateNetTaxes(results, region, calcs)
 {
-    results.netTaxes.netTaxesFederal = results.taxes.federalTax - results.credits.federalCredits;
+    results.netTaxes.netTaxesFederal = Math.max(0, results.taxes.federalTax - results.credits.federalCredits);
     results.taxes.regionalSurtax = calcs.taxCalc.calculateRegionalSurtax(results.taxes.regionalTax - results.credits.regionalCredits, region);
-    results.netTaxes.netTaxesRegional = (results.taxes.regionalTax - results.credits.regionalCredits) + results.taxes.regionalSurtax + results.premiums.ontarioHealthPremium;
+    results.netTaxes.netTaxesRegional = Math.max(0, results.taxes.regionalTax - results.credits.regionalCredits + results.taxes.regionalSurtax + results.premiums.ontarioHealthPremium);
     results.netTaxes.netTaxes = results.netTaxes.netTaxesFederal + results.netTaxes.netTaxesRegional;
 }
 

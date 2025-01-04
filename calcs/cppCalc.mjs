@@ -1,5 +1,5 @@
 export default class CPPCalc {
-    constructor(taxDataForYear, region) {        
+    constructor(taxDataForYear, region) {
         let cppRegion = region === 'Quebec' ? 'Quebec' : 'Federal';
         this.cppData = taxDataForYear[cppRegion].CPP_QPP;
         this.taxBracketsForRegion = taxDataForYear[region].brackets;
