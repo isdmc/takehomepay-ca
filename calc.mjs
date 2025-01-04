@@ -99,7 +99,6 @@ function calculateCredits(results, region, grossIncome, calcs)
     results.credits.totalCredits = results.credits.federalCredits + results.credits.regionalCredits;
 }
 
-// Taxes and Premiums?
 function calculateNetTaxes(results, region, calcs)
 {
     results.netTaxes.netTaxesFederal = results.taxes.federalTax - results.credits.federalCredits;
@@ -176,7 +175,7 @@ function printDebug(year, region, grossIncome, results)
     console.log(`Total Tax: ${results.taxes.federalTax + results.taxes.regionalTax}`);
     console.log('\n----------------- PREMIUMS --------------------');
     console.log(`CPP/QPP Premiums: ${results.premiums.cppPremiums}`);
-    console.log(`EI Premiums: ${results.eiPremiums}`);
+    console.log(`EI Premiums: ${results.premiums.eiPremiums}`);
     console.log(`Ontario Health Premium: ${results.premiums.ontarioHealthPremium}`);
     console.log('\n----------------- CREDITS --------------------');
     console.log(`Basic Personal Income Credits Federal: ${results.credits.basicPersonalAmountCreditFederal}`);
