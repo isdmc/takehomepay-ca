@@ -69,7 +69,7 @@ function calculatePremiums(results, grossIncome, taxableIncome, region, calcs)
     results.premiums.ontarioHealthPremium = ontarioHealthPremium;
     results.premiums.cppPremiums = calcs.cppCalc.calculateCPPPremiums(taxableIncome) + calcs.cppCalc.calculateCPPEnhancedPremiums(grossIncome);
     results.premiums.eiPremiums = calcs.eiCalc.calculateEIPremiums(grossIncome);
-    results.premiums.totalPremiums = results.premiums.cppPremiums + results.premiums.eiPremiums;
+    results.premiums.totalPremiums = results.premiums.cppPremiums + results.premiums.eiPremiums + results.premiums.ontarioHealthPremium;
 }
 
 function calculateDeductions(results, grossIncome, calcs)
@@ -109,8 +109,8 @@ function calculateNetTaxes(results, region, calcs)
 
 function calculateNetPay(results, grossIncome, payFrequencyDivisor)
 {
-    results.netPay.total = grossIncome - (results.netTaxes.netTaxes + results.premiums.cppPremiums + results.premiums.eiPremiums);
-    results.netPay.perPayCheck = results.netPay.total / payFrequencyDivisor;   
+    results.netPay.total = grossIncome - (results.netTaxes.netTaxes + results.premiums.totalPremiums);
+    results.netPay.perPayCheck = results.netPay.total / payFrequencyDivisor;
 }
 
 function displayResults(results)
@@ -128,6 +128,9 @@ function displayResults(results)
     let eiPremiumsElement = document.getElementById('eiPremiums');
     cppPremiumsElement.textContent = toDollarFormat(results.premiums.cppPremiums);
     eiPremiumsElement.textContent = toDollarFormat(results.premiums.eiPremiums);
+
+    let totalPremiumsElement = document.getElementById('totalPremiums');
+    totalPremiumsElement.textContent = toDollarFormat(results.premiums.totalPremiums)
 
     let cppDeductionElement = document.getElementById('cpp2Deduction');
     cppDeductionElement.textContent = toDollarFormat(results.deductions.cppDeduction);
@@ -156,6 +159,9 @@ function displayResults(results)
     let netRegionalTaxesElement = document.getElementById('netTaxesRegional');
     netFederalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesFederal);
     netRegionalTaxesElement.textContent = toDollarFormat(results.netTaxes.netTaxesRegional);
+
+    let takehomePayDetailsElement = document.getElementById('takehomePayDetails');
+    takehomePayDetailsElement.textContent = toDollarFormat(results.netPay.total);
 
     let takehomePayElement = document.getElementById('takehomePay');
     takehomePayElement.textContent = toDollarFormat(results.netPay.total);
