@@ -1,4 +1,485 @@
  export default {
+    '2025': {
+        'Federal': {
+            'basicPersonalAmount': 14538,
+            'additionalBasicPersonalAmount': 1591,
+            'canadaEmploymentCreditAmount': 1471,
+            'CPP_QPP': {
+                'creditRate': 0.15,
+                'maxPensionableEarnings': 71300,
+                'maxAdditionalPensionableEarnings': 81200,
+                'baseContributionRate': 0.0495,
+                'additionalContributionRate': 0.01,
+                'CPP_QPP2ContributionRate': 0.04,
+                'exemptionAmount': 3500
+            },
+            'ei': {
+                'creditRate': 0.15,
+                'maxInsurableEarnings': 65700,
+                'contributionRate': 0.0164
+            },
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 57375,
+                    'rate': 0.15
+                },
+                {
+                    'rangeMin': 57375,
+                    'rangeMax': 114750,
+                    'rate': 0.205
+                },
+                {
+                    'rangeMin': 114750,
+                    'rangeMax': 177882,
+                    'rate': 0.26
+                },
+                {
+                    'rangeMin': 177882,
+                    'rangeMax': 253414,
+                    'rate': 0.29
+                },
+                {
+                    'rangeMin': 253414,
+                    'rangeMax': Infinity,
+                    'rate': 0.33
+                }
+            ]
+        },
+        'Newfoundland and Labrador': {
+            'basicPersonalAmount': 11067,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 44192,
+                    'rate': 0.087
+                },
+                {
+                    'rangeMin': 44192,
+                    'rangeMax': 88382,
+                    'rate': 0.145
+                },
+                {
+                    'rangeMin': 88382,
+                    'rangeMax': 157792,
+                    'rate': 0.158
+                },
+                {
+                    'rangeMin': 157792,
+                    'rangeMax': 220910,
+                    'rate': 0.178
+                },
+                {
+                    'rangeMin': 220910,
+                    'rangeMax': 282214,
+                    'rate': 0.198
+                },
+                {
+                    'rangeMin': 282214,
+                    'rangeMax': 564429,
+                    'rate': 0.208
+                },
+                {
+                    'rangeMin': 564429,
+                    'rangeMax': 1128858,
+                    'rate': 0.213
+                },
+                {
+                    'rangeMin': 1128858,
+                    'rangeMax': Infinity,
+                    'rate': 0.218
+                },
+            ]
+        },
+        'Prince Edward Island': {
+            'basicPersonalAmount': 14250,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 33328,
+                    'rate': 0.0965
+                },
+                {
+                    'rangeMin': 33328,
+                    'rangeMax': 64656,
+                    'rate': 0.1347
+                },
+                {
+                    'rangeMin': 64656,
+                    'rangeMax': 105000,
+                    'rate': 0.1660
+                },
+                {
+                    'rangeMin': 105000,
+                    'rangeMax': 140000,
+                    'rate': 0.1762
+                },
+                {
+                    'rangeMin': 140000,
+                    'rangeMax': Infinity,
+                    'rate': 0.19
+                }
+            ]
+        },
+        'Nova Scotia': {
+            'basicPersonalAmount': 8744,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 30507,
+                    'rate': 0.0879
+                },
+                {
+                    'rangeMin': 30507,
+                    'rangeMax': 61015,
+                    'rate': 0.1495
+                },
+                {
+                    'rangeMin': 61015,
+                    'rangeMax': 95883,
+                    'rate': 0.1667
+                },
+                {
+                    'rangeMin': 95883,
+                    'rangeMax': 154650,
+                    'rate': 0.175
+                },
+                {
+                    'rangeMin': 154650,
+                    'rangeMax': Infinity,
+                    'rate': 0.21
+                },
+            ]
+        },
+        'Quebec': {
+            'basicPersonalAmount': 18571,
+            'CPP_QPP': {
+                'creditRate': 0.15,
+                'maxPensionableEarnings': 71300,
+                'maxAdditionalPensionableEarnings': 81200,
+                'baseContributionRate': 0.054,
+                'additionalContributionRate': 0.01,
+                'CPP_QPP2ContributionRate': 0.04,
+                'exemptionAmount': 3500
+            },
+            'ei': {
+                'creditRate': 0.15,
+                'maxInsurableEarnings': 65700,
+                'contributionRate': 0.0164
+            },
+            'qpip': {
+                'creditRate': 0.15,
+                'maxInsurableEarnings': 98000,
+                'contributionRate': 0.00494
+            },
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 53255,
+                    'rate': 0.14
+                },
+                {
+                    'rangeMin': 53255,
+                    'rangeMax': 106495,
+                    'rate': 0.19
+                },
+                {
+                    'rangeMin': 106495,
+                    'rangeMax': 129590,
+                    'rate': 0.24
+                },
+                {
+                    'rangeMin': 129590,
+                    'rangeMax': Infinity,
+                    'rate': 0.2575
+                }
+            ]
+        },
+        'Ontario': {
+            'basicPersonalAmount': 12747,
+            'healthPremiumBrackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 20000,
+                    'baseAmount': 0,
+                    'previousBaseAmount': 0,
+                    'rate': 0
+                },
+                {
+                    'rangeMin': 20000,
+                    'rangeMax': 36000,
+                    'baseAmount': 300,
+                    'previousBaseAmount': 0,
+                    'rate': 0.06
+                },
+                {
+                    'rangeMin': 36000,
+                    'rangeMax': 48000,
+                    'baseAmount': 450,
+                    'previousBaseAmount': 300,
+                    'rate': 0.06
+                },
+                {
+                    'rangeMin': 48000,
+                    'rangeMax': 72000,
+                    'baseAmount': 600,
+                    'previousBaseAmount': 450,
+                    'rate': 0.25
+                },
+                {
+                    'rangeMin': 72000,
+                    'rangeMax': 200000,
+                    'baseAmount': 750,
+                    'previousBaseAmount': 600,
+                    'rate': 0.25
+                },
+                {
+                    'rangeMin': 200000,
+                    'rangeMax': Infinity,
+                    'baseAmount': 900,
+                    'previousBaseAmount': 750,
+                    'rate': 0.25
+                }
+            ],
+            'surtaxBrackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 5710,
+                    'rate': 0
+                },
+                {
+                    'rangeMin': 5710,
+                    'rangeMax': 7307,
+                    'rate': 0.2
+                },
+                {
+                    'rangeMin': 7307,
+                    'rangeMax': Infinity,
+                    'rate': 0.36
+                }
+            ],
+            'brackets':
+            [   
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 52886,
+                    'rate': 0.0505
+                },
+                {
+                    'rangeMin': 52886,
+                    'rangeMax': 105775,
+                    'rate': 0.0915
+                },
+                {
+                    'rangeMin': 105775,
+                    'rangeMax': 150000,
+                    'rate': 0.1116
+                },
+                {
+                    'rangeMin': 150000,
+                    'rangeMax': 220000,
+                    'rate': 0.1216
+                },
+                {
+                    'rangeMin': 220000,
+                    'rangeMax': Infinity,
+                    'rate': 0.1316
+                }
+            ]
+        },
+        'Manitoba': {
+            'basicPersonalAmount': 15969,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 47564,
+                    'rate': 0.108
+                },
+                {
+                    'rangeMin': 47564,
+                    'rangeMax': 101200,
+                    'rate': 0.1275
+                },
+                {
+                    'rangeMin': 101200,
+                    'rangeMax': Infinity,
+                    'rate': 0.174
+                }
+            ]
+        },
+        'Saskatchewan': {
+            'basicPersonalAmount': 18991,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 53463,
+                    'rate': 0.105
+                },
+                {
+                    'rangeMin': 53463,
+                    'rangeMax': 152750,
+                    'rate': 0.125
+                },
+                {
+                    'rangeMin': 152750,
+                    'rangeMax': Infinity,
+                    'rate': 0.145
+                }
+            ]
+        },
+        'Alberta': {
+            'basicPersonalAmount': 22323,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 151234,
+                    'rate': 0.1
+                },
+                {
+                    'rangeMin': 151234,
+                    'rangeMax': 181481,
+                    'rate': 0.12
+                },
+                {
+                    'rangeMin': 181481,
+                    'rangeMax': 241974,
+                    'rate': 0.13
+                },
+                {
+                    'rangeMin': 241974,
+                    'rangeMax': 362961,
+                    'rate': 0.14
+                },
+                {
+                    'rangeMin': 362961,
+                    'rangeMax': Infinity,
+                    'rate': 0.15
+                },
+            ]
+        },
+        'British Columbia': {
+            'basicPersonalAmount': 12932,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 49279,
+                    'rate': 0.0506
+                },
+                {
+                    'rangeMin': 49279,
+                    'rangeMax': 98560,
+                    'rate': 0.077
+                },
+                {
+                    'rangeMin': 98560,
+                    'rangeMax': 113158,
+                    'rate': 0.105
+                },
+                {
+                    'rangeMin': 113158,
+                    'rangeMax': 137407,
+                    'rate': 0.1229
+                },
+                {
+                    'rangeMin': 137407,
+                    'rangeMax': 186306,
+                    'rate': 0.147
+                },
+                {
+                    'rangeMin': 186306,
+                    'rangeMax': 259829,
+                    'rate': 0.168
+                },
+                {
+                    'rangeMin': 259829,
+                    'rangeMax': Infinity,
+                    'rate': 0.205
+                }
+            ]
+        },
+        'Yukon': {
+            'basicPersonalAmount': 14538,
+            'additionalBasicPersonalAmount': 1591,
+            'canadaEmploymentCreditAmount': 1471,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 57375,
+                    'rate': 0.064
+                },
+                {
+                    'rangeMin': 57375,
+                    'rangeMax': 114750,
+                    'rate': 0.09
+                },
+                {
+                    'rangeMin': 114750,
+                    'rangeMax': 177882,
+                    'rate': 0.109
+                },
+                {
+                    'rangeMin': 177882,
+                    'rangeMax': 500000,
+                    'rate': 0.128
+                },
+                {
+                    'rangeMin': 500000,
+                    'rangeMax': Infinity,
+                    'rate': 0.15
+                }
+            ]
+        },
+        'Northwest Territories': {
+            'basicPersonalAmount': 17842,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 51964,
+                    'rate': 0.059
+                },
+                {
+                    'rangeMin': 51964,
+                    'rangeMax': 103930,
+                    'rate': 0.086
+                },
+                {
+                    'rangeMin': 103930,
+                    'rangeMax': 168967,
+                    'rate': 0.122
+                },
+                {
+                    'rangeMin': 168967,
+                    'rangeMax': Infinity,
+                    'rate': 0.1405
+                }
+            ]
+        },
+        'Nunavut': {
+            'basicPersonalAmount': 19274,
+            'brackets': [
+                {
+                    'rangeMin': 0,
+                    'rangeMax': 54707,
+                    'rate': 0.04
+                },
+                {
+                    'rangeMin': 54707,
+                    'rangeMax': 109413,
+                    'rate': 0.07
+                },
+                {
+                    'rangeMin': 109413,
+                    'rangeMax': 177881,
+                    'rate': 0.09
+                },
+                {
+                    'rangeMin': 177881,
+                    'rangeMax': Infinity,
+                    'rate': 0.115
+                }
+            ]
+        }
+    },
     '2024': {
         'Federal': {
             'basicPersonalAmount': 14156,
@@ -263,7 +744,7 @@
                     'rangeMax': Infinity,
                     'baseAmount': 900,
                     'previousBaseAmount': 750,
-                    'rate': 0.06
+                    'rate': 0.25
                 }
             ],
             'surtaxBrackets': [
@@ -310,7 +791,7 @@
                     'rangeMax': Infinity,
                     'rate': 0.1316
                 }
-            ]    
+            ]
         },
         'Manitoba': {
             'basicPersonalAmount': 15780,
@@ -502,418 +983,6 @@
                     'rangeMax': Infinity,
                     'rate': 0.115
                 }
-            ]
-        }
-    },
-    '2023': {
-        'Federal': {
-            'basicPersonalAmount': 13521,
-            'additionalBasicPersonalAmount': 1479,
-            'cppContributionRate': 0.0595,
-            'maxPensionableEarnings': 66600,
-            'eiContributionRate': 0.0163,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 53359,
-                    'rate': 0.15
-                },
-                {
-                    'rangeMin': 53359,
-                    'rangeMax': 106717,
-                    'rate': 0.205
-                },
-                {
-                    'rangeMin': 106717,
-                    'rangeMax': 165430,
-                    'rate': 0.26
-                },
-                {
-                    'rangeMin': 165430,
-                    'rangeMax': 235675,
-                    'rate': 0.29
-                },
-                {
-                    'rangeMin': 235675,
-                    'rangeMax': Infinity,
-                    'rate': 0.33
-                }
-            ]
-        },
-        'Newfoundland and Labrador': {
-            'basicPersonalAmount': 10382,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 41457,
-                    'rate': 0.087
-                },
-                {
-                    'rangeMin': 41457,
-                    'rangeMax': 82913,
-                    'rate': 0.145
-                },
-                {
-                    'rangeMin': 82913,
-                    'rangeMax': 148027,
-                    'rate': 0.158
-                },
-                {
-                    'rangeMin': 148027,
-                    'rangeMax': 207239,
-                    'rate': 0.178
-                },
-                {
-                    'rangeMin': 207239,
-                    'rangeMax': 264750,
-                    'rate': 0.198
-                },
-                {
-                    'rangeMin': 264750,
-                    'rangeMax': 529500,
-                    'rate': 0.208
-                },
-                {
-                    'rangeMin': 529500,
-                    'rangeMax': 1059000,
-                    'rate': 0.213
-                },
-                {
-                    'rangeMin': 1059000,
-                    'rangeMax': Infinity,
-                    'rate': 0.218
-                },
-            ]
-        },
-        'Prince Edward Island': {
-            'basicPersonalAmount': 12750,
-            'brackets': 
-            [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 31984,
-                    'rate': 0.098
-                },
-                {
-                    'rangeMin': 31984,
-                    'rangeMax': 63969,
-                    'rate': 0.138
-                },
-                {
-                    'rangeMin': 63969,
-                    'rangeMax': Infinity,
-                    'rate': 0.167
-                },
-            ]
-        },
-        'Nova Scotia': {
-            'basicPersonalAmount': 8481,
-            'brackets': 
-            [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 29590,
-                    'rate': 0.0879
-                },
-                {
-                    'rangeMin': 29590,
-                    'rangeMax': 59180,
-                    'rate': 0.1495
-                },
-                {
-                    'rangeMin': 59180,
-                    'rangeMax': 93000,
-                    'rate': 0.1667
-                },
-                {
-                    'rangeMin': 93000,
-                    'rangeMax': 150000,
-                    'rate': 0.175
-                },
-                {
-                    'rangeMin': 150000,
-                    'rangeMax': Infinity,
-                    'rate': 0.21
-                },
-            ]
-        },
-        'New Brunswick': {
-            'basicPersonalAmount': 12458,
-            'brackets':
-            [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 47715,
-                    'rate': 0.094
-                },
-                {
-                    'rangeMin': 47715,
-                    'rangeMax': 95431,
-                    'rate': 0.14
-                },
-                {
-                    'rangeMin': 95431,
-                    'rangeMax': 176756,
-                    'rate': 0.16
-                },
-                {
-                    'rangeMin': 176756,
-                    'rangeMax': Infinity,
-                    'rate': 0.195
-                }
-            ]
-        },
-        'Quebec': {
-            'basicPersonalAmount': 17183,
-            'brackets': 
-            [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 49275,
-                    'rate': 0.14
-                },
-                {
-                    'rangeMin': 49275,
-                    'rangeMax': 98540,
-                    'rate': 0.19
-                },
-                {
-                    'rangeMin': 98540,
-                    'rangeMax': 119910,
-                    'rate': 0.24
-                },
-                {
-                    'rangeMin': 119910,
-                    'rangeMax': Infinity,
-                    'rate': 0.2575
-                },
-            ]
-        },
-        'Ontario': {
-            'basicPersonalAmount': 11865,
-            'brackets':
-            [   
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 49231,
-                    'rate': 0.0505
-                },
-                {
-                    'rangeMin': 49231,
-                    'rangeMax': 98463,
-                    'rate': 0.0915
-                },
-                {
-                    'rangeMin': 98463,
-                    'rangeMax': 150000,
-                    'rate': 0.1116
-                },
-                {
-                    'rangeMin': 150000,
-                    'rangeMax': 220000,
-                    'rate': 0.1216
-                },
-                {
-                    'rangeMin': 220000,
-                    'rangeMax': Infinity,
-                    'rate': 0.1316
-                }
-            ]    
-        },
-        'Manitoba': {
-            'basicPersonalAmount': 15000,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 36842,
-                    'rate': 0.1080
-                },
-                {
-                    'rangeMin': 36842,
-                    'rangeMax': 79625,
-                    'rate': 0.1275
-                },
-                {
-                    'rangeMin': 79625,
-                    'rangeMax': Infinity,
-                    'rate': 0.1740
-                }
-            ]
-        },
-        'Saskatchewan': {
-            'basicPersonalAmount': 17661,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 49720,
-                    'rate': 0.105
-                },
-                {
-                    'rangeMin': 49720,
-                    'rangeMax': 142058,
-                    'rate': 0.125
-                },
-                {
-                    'rangeMin': 142058,
-                    'rangeMax': Infinity,
-                    'rate': 0.145
-                }
-            ]
-        },
-        'Alberta': {
-            'basicPersonalAmount': 21003,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 142292,
-                    'rate': 0.1
-                },
-                {
-                    'rangeMin': 142292,
-                    'rangeMax': 170751,
-                    'rate': 0.12
-                },
-                {
-                    'rangeMin': 170751,
-                    'rangeMax': 227668,
-                    'rate': 0.13
-                },
-                {
-                    'rangeMin': 227668,
-                    'rangeMax': 341502,
-                    'rate': 0.14
-                },
-                {
-                    'rangeMin': 341502,
-                    'rangeMax': Infinity,
-                    'rate': 0.15
-                },
-            ]
-        },
-        'British Columbia': {
-            'basicPersonalAmount': 11981,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 45654,
-                    'rate': 0.0506
-                },
-                {
-                    'rangeMin': 45654,
-                    'rangeMax': 91310,
-                    'rate': 0.077
-                },
-                {
-                    'rangeMin': 91310,
-                    'rangeMax': 104835,
-                    'rate': 0.105
-                },
-                {
-                    'rangeMin': 104835,
-                    'rangeMax': 127299,
-                    'rate': 0.1229
-                },
-                {
-                    'rangeMin': 127299,
-                    'rangeMax': 172602,
-                    'rate': 0.147
-                },
-                {
-                    'rangeMin': 172602,
-                    'rangeMax': 240716,
-                    'rate': 0.168
-                },
-                {
-                    'rangeMin': 172602,
-                    'rangeMax': Infinity,
-                    'rate': 0.205
-                }
-            ]
-        },
-        'Yukon': {
-            'basicPersonalAmount': 13521,
-            'additionalBasicPersonalAmount': 1479,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 53359,
-                    'rate': 0.064
-                },
-                {
-                    'rangeMin': 53359,
-                    'rangeMax': 106717,
-                    'rate': 0.09
-                },
-                {
-                    'rangeMin': 106717,
-                    'rangeMax': 165430,
-                    'rate': 0.109
-                },
-                {
-                    'rangeMin': 165430,
-                    'rangeMax': 235675,
-                    'rate': 0.1293
-                },
-                {
-                    'rangeMin': 235675,
-                    'rangeMax': 500000,
-                    'rate': 0.128
-                },
-                {
-                    'rangeMin': 500000,
-                    'rangeMax': Infinity,
-                    'rate': 0.15
-                }
-            ]
-        },
-        'Northwest Territories': {
-            'basicPersonalAmount': 16593,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 48326,
-                    'rate': 0.059
-                },
-                {
-                    'rangeMin': 48326,
-                    'rangeMax': 96655,
-                    'rate': 0.086
-                },
-                {
-                    'rangeMin': 96655,
-                    'rangeMax': 157139,
-                    'rate': 0.122
-                },
-                {
-                    'rangeMin': 157139,
-                    'rangeMax': Infinity,
-                    'rate': 0.1405
-                }
-            ]
-        },
-        'Nunavut': {
-            'basicPersonalAmount': 16593,
-            'brackets': [
-                {
-                    'rangeMin': 0,
-                    'rangeMax': 48326,
-                    'rate': 0.059
-                },
-                {
-                    'rangeMin': 48326,
-                    'rangeMax': 96655,
-                    'rate': 0.086
-                },
-                {
-                    'rangeMin': 96655,
-                    'rangeMax': 157139,
-                    'rate': 0.122
-                },
-                {
-                    'rangeMin': 157139,
-                    'rangeMax': Infinity,
-                    'rate': 0.1405
-                },
             ]
         }
     }
