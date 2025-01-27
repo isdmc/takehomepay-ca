@@ -16,17 +16,13 @@ http.createServer((request, response) => {
     
     fs.promises.lstat(requestedPath)
     .then((fileStats) => {
-        console.log('Requsted file or dir exists')
         if (fileStats.isDirectory()) {
-            console.log('Requested path is directory, send default');
             sendResponse(response, defaultPath);
         } else {
-            console.log('Send requested file');
             sendResponse(response, requestedPath);
         }
     })
     .catch(() => {
-        console.log('requested file does not exist. Sending default.');
         sendResponse(response, defaultPath);
     });
 
