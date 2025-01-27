@@ -46,6 +46,8 @@ function mapDocToContentType(path) {
         return 'text/css';
     } else if (path.endsWith('.svg')) {
         return 'image/svg+xml';
+    } else if (path.endsWith('.png')) {
+        return 'image/png';
     } else {
         return 'text/plain';
     }
